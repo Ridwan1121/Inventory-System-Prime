@@ -1,61 +1,22 @@
 ﻿<!DOCTYPE html>
 <html lang="so">
 <head>
-    <!-- Content Security Policy -->
-    <meta http-equiv="Content-Security-Policy" content="
-        default-src 'self';
-        script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://cdnjs.cloudflare.com;
-        style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com;
-        font-src 'self' https://cdnjs.cloudflare.com https://fonts.gstatic.com;
-        img-src 'self' data:;
-        connect-src 'self' https://ipapi.co https://ipinfo.io;
-        frame-src 'self' https://www.googletagmanager.com;
-    " />
-    <!-- Security Headers -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Inventory Management System</title>
+    <meta name="description" content="Inventory Management System - Maamul hantida ganacsigaaga. Diiwaangeli, iibi, oo la soco alaabta." />
+    
+    <link rel="icon" type="image/png" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📦</text></svg>" />
+
     <meta http-equiv="X-Content-Type-Options" content="nosniff" />
     <meta http-equiv="X-Frame-Options" content="DENY" />
     <meta http-equiv="X-XSS-Protection" content="1; mode=block" />
     <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
-    <meta name="color-scheme" content="light" />
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Lubaan Products - Hargeisa, Burco iyo Boorama</title>
-    <meta name="description" content="Lubaan Products - Lubaanta Dawada Ilkaha &amp; Herbalka. Ka iibso Jumlada Hargeisa, Burco iyo Boorama." />
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦷</text></svg>" />
-
-    <!-- Google Tag Manager + Consent Mode v2 -->
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){ dataLayer.push(arguments); }
-        
-        gtag('consent', 'default', {
-            'ad_storage': 'denied',
-            'ad_user_data': 'denied',
-            'ad_personalization': 'denied',
-            'analytics_storage': 'denied',
-            'wait_for_update': 500
-        });
-        
-        gtag('set', 'ads_data_redaction', true);
-        gtag('set', 'url_passthrough', true);
-    </script>
-
-    <!-- Google Tag Manager -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-MF3RVFLT');</script>
-    <!-- End Google Tag Manager -->
 
     <style>
         #consent-banner {
             position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
+            bottom: 0; left: 0; right: 0;
             background: #0f172a;
             color: #e2e8f0;
             padding: 16px 20px;
@@ -72,47 +33,9 @@
         #consent-banner button { padding: 10px 24px; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; }
         #consent-banner .btn-accept { background: #2563eb; color: white; }
         #consent-banner .btn-deny { background: #334155; color: #e2e8f0; }
-        #consent-banner .btn-settings { background: transparent; color: #94a3b8; text-decoration: underline; }
         @media (max-width: 600px) {
             #consent-banner { flex-direction: column; text-align: center; }
-            #consent-banner .btn-group { justify-content: center; }
         }
-        #settings-modal {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0,0,0,0.7);
-            z-index: 10000;
-            justify-content: center;
-            align-items: center;
-        }
-        #settings-modal .modal-content {
-            background: white;
-            padding: 30px;
-            border-radius: 16px;
-            max-width: 400px;
-            width: 90%;
-            color: #0f172a;
-        }
-        #settings-modal .setting-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 10px 0;
-            border-bottom: 1px solid #e2e8f0;
-            align-items: center;
-        }
-        #settings-modal button {
-            padding: 10px 24px;
-            border: none;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            width: 100%;
-            margin-top: 6px;
-        }
-        #settings-modal .btn-save { background: #2563eb; color: white; }
-        #settings-modal .btn-close-modal { background: #e2e8f0; color: #334155; }
-        input[type="checkbox"] { width: 18px; height: 18px; accent-color: #2563eb; cursor: pointer; }
     </style>
 
     <link rel="stylesheet" href="style.css" />
@@ -120,38 +43,12 @@
 </head>
 <body>
 
-    <noscript>
-        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MF3RVFLT"
-        height="0" width="0" style="display:none;visibility:hidden"></iframe>
-    </noscript>
-
     <!-- Consent Banner -->
     <div id="consent-banner">
         <p><i class="fas fa-shield-alt"></i> Waxaan isticmaalnaa cookies si aan u wanaajino khibradaada.</p>
         <div class="btn-group">
-            <button class="btn-settings" onclick="showSettings()"><i class="fas fa-cog"></i> Settings</button>
             <button class="btn-deny" onclick="denyConsent()"><i class="fas fa-times"></i> Deny</button>
             <button class="btn-accept" onclick="acceptConsent()"><i class="fas fa-check"></i> Accept All</button>
-        </div>
-    </div>
-
-    <div id="settings-modal">
-        <div class="modal-content">
-            <h3><i class="fas fa-sliders-h"></i> Cookie Settings</h3>
-            <div class="setting-item">
-                <span><i class="fas fa-chart-line"></i> Analytics</span>
-                <input type="checkbox" id="consent-analytics" checked />
-            </div>
-            <div class="setting-item">
-                <span><i class="fas fa-ad"></i> Advertising</span>
-                <input type="checkbox" id="consent-advertising" checked />
-            </div>
-            <div class="setting-item">
-                <span><i class="fas fa-user"></i> Personalization</span>
-                <input type="checkbox" id="consent-personalization" checked />
-            </div>
-            <button class="btn-save" onclick="saveSettings()"><i class="fas fa-save"></i> Save Settings</button>
-            <button class="btn-close-modal" onclick="closeSettings()">Close</button>
         </div>
     </div>
 
@@ -159,191 +56,236 @@
     <header>
         <div class="container">
             <div class="logo">
-                <i class="fas fa-tooth"></i>
-                <h1>Lubaan <span>Products</span></h1>
+                <i class="fas fa-boxes"></i>
+                <h1>Inventory <span>System</span></h1>
             </div>
-            <p>Lubaanta Dawada Ilkaha &amp; Herbalka — Hargeisa, Burco iyo Boorama</p>
+            <p>Maamul hantida ganacsigaaga — Diiwaangeli, iibi, oo la soco alaabta</p>
         </div>
     </header>
 
-    <main class="container">
-        <!-- Admin Toggle Button -->
-        <div class="admin-toggle-container">
-            <button id="adminToggleBtn" class="admin-toggle-btn" onclick="toggleAdminPanel()">
-                <i class="fas fa-cog"></i> Maamul
+    <!-- AUTH SECTION -->
+    <section class="auth-section" id="authSection">
+        <div class="auth-container">
+            <div class="auth-tabs">
+                <button class="auth-tab active" onclick="switchAuth('login')">
+                    <i class="fas fa-sign-in-alt"></i> Soo Gal
+                </button>
+                <button class="auth-tab" onclick="switchAuth('signup')">
+                    <i class="fas fa-user-plus"></i> Diiwaangeli
+                </button>
+            </div>
+
+            <!-- Login Form -->
+            <div id="loginForm" class="auth-form active">
+                <h2><i class="fas fa-lock"></i> Soo Gal</h2>
+                <p class="auth-subtitle">Geli email-kaaga iyo password-kaaga</p>
+                <div class="form-group">
+                    <label><i class="fas fa-envelope"></i> Email</label>
+                    <input type="email" id="loginEmail" placeholder="email@example.com" />
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-key"></i> Password</label>
+                    <input type="password" id="loginPassword" placeholder="••••••••" />
+                </div>
+                <button class="auth-btn" onclick="login()">
+                    <i class="fas fa-sign-in-alt"></i> Soo Gal
+                </button>
+                <p class="auth-error" id="loginError"></p>
+                <p class="auth-hint">Ma haysataa account? <a onclick="switchAuth('signup')">Diiwaangeli</a></p>
+            </div>
+
+            <!-- Signup Form -->
+            <div id="signupForm" class="auth-form">
+                <h2><i class="fas fa-user-plus"></i> Samee Account</h2>
+                <p class="auth-subtitle">Samee account si aad u maamusho ganacsigaaga</p>
+                <div class="form-group">
+                    <label><i class="fas fa-user"></i> Magacaaga</label>
+                    <input type="text" id="signupName" placeholder="Magacaaga buuxa" />
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-store"></i> Magaca Ganacsiga</label>
+                    <input type="text" id="signupBusiness" placeholder="Tusaale: Lubaan Products" />
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-envelope"></i> Email</label>
+                    <input type="email" id="signupEmail" placeholder="email@example.com" />
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-phone"></i> Telefoon</label>
+                    <input type="tel" id="signupPhone" placeholder="+252 63 400 8040" />
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-key"></i> Password</label>
+                    <input type="password" id="signupPassword" placeholder="••••••••" />
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-key"></i> Xaqiiji Password</label>
+                    <input type="password" id="signupPassword2" placeholder="••••••••" />
+                </div>
+                <button class="auth-btn" onclick="signup()">
+                    <i class="fas fa-user-plus"></i> Diiwaangeli
+                </button>
+                <p class="auth-error" id="signupError"></p>
+                <p class="auth-hint">Ma haysataa account? <a onclick="switchAuth('login')">Soo Gal</a></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- DASHBOARD (Hidden by default) -->
+    <section class="dashboard" id="dashboard" style="display:none;">
+        <!-- Dashboard Header -->
+        <div class="dashboard-header">
+            <div class="dashboard-user">
+                <i class="fas fa-user-circle"></i>
+                <div>
+                    <strong id="userName">User</strong>
+                    <small id="userBusiness">Business</small>
+                </div>
+            </div>
+            <button class="logout-btn" onclick="logout()">
+                <i class="fas fa-sign-out-alt"></i> Ka Bax
             </button>
         </div>
 
-        <!-- Wholesale Section -->
-        <section class="wholesale-section">
-            <div class="wholesale-badge"><i class="fas fa-tags"></i> Jumlada</div>
-            <h2><i class="fas fa-handshake"></i> Miyaad tahay Ganacsi Rabo Jumlada?</h2>
-            <div class="wholesale-content">
-                <p class="main-text">
-                    <strong>Lubaan Products</strong> waxay ku siisaa <strong>Half Kartoon (36 Pcs)</strong> ama 
-                    <strong>Kartoon Buuxa (72 Pcs)</strong> oo qiimo dhimis leh. 
-                    Waxaan ka iibinaa jumlada <strong>Hargeisa, Burco, iyo Boorama</strong>.
-                </p>
-                <p class="sub-text">
-                    <i class="fas fa-quote-left"></i> 
-                    Lubaan Products waxay goobaha ay jumlada ka iibiso ay ka caawisaa 
-                    sida bulshadu ugu heli lahayd alaabta si fudud oo ku dhow.
-                    <i class="fas fa-quote-right"></i>
-                </p>
-                <div class="locations-box">
-                    <div class="location-item">
-                        <i class="fas fa-map-marker-alt" style="color:#2563eb;"></i>
-                        <div><strong>Hargeisa</strong><span>15+ goobood</span></div>
-                    </div>
-                    <div class="location-item">
-                        <i class="fas fa-map-marker-alt" style="color:#059669;"></i>
-                        <div><strong>Burco</strong><span>Saytuuni Herbals</span></div>
-                    </div>
-                    <div class="location-item">
-                        <i class="fas fa-map-marker-alt" style="color:#d97706;"></i>
-                        <div><strong>Boorama</strong><span>Telesom-ta weyn</span></div>
-                    </div>
+        <!-- Stats Cards -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon" style="background:#dbeafe;color:#1e40af;">
+                    <i class="fas fa-boxes"></i>
                 </div>
-                <div class="btn-group-wholesale">
-                    <a href="https://wa.me/252634008040?text=Waxaan%20doonayaa%20inaan%20iibsado%20Lubaanta" class="whatsapp-btn" target="_blank">
-                        <i class="fab fa-whatsapp"></i> WhatsApp
-                    </a>
-                    <a href="tel:+252634008040" class="call-btn">
-                        <i class="fas fa-phone"></i> Wac: 0634008040
-                    </a>
+                <div class="stat-info">
+                    <span id="totalProducts">0</span>
+                    <small>Alaabta</small>
                 </div>
             </div>
-        </section>
+            <div class="stat-card">
+                <div class="stat-icon" style="background:#d1fae5;color:#065f46;">
+                    <i class="fas fa-dollar-sign"></i>
+                </div>
+                <div class="stat-info">
+                    <span id="totalValue">$0</span>
+                    <small>Qiimaha</small>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon" style="background:#fef3c7;color:#92400e;">
+                    <i class="fas fa-exclamation-triangle"></i>
+                </div>
+                <div class="stat-info">
+                    <span id="lowStock">0</span>
+                    <small>Alaab yar</small>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon" style="background:#e0e7ff;color:#4338ca;">
+                    <i class="fas fa-shopping-cart"></i>
+                </div>
+                <div class="stat-info">
+                    <span id="totalSales">0</span>
+                    <small>Iibka</small>
+                </div>
+            </div>
+        </div>
 
-        <!-- View Mode - Search & Cards -->
-        <section id="viewMode">
-            <div class="search-section">
+        <!-- Tabs -->
+        <div class="dashboard-tabs">
+            <button class="dash-tab active" onclick="switchDash('inventory')">
+                <i class="fas fa-boxes"></i> Alaabta
+            </button>
+            <button class="dash-tab" onclick="switchDash('sales')">
+                <i class="fas fa-shopping-cart"></i> Iibka
+            </button>
+            <button class="dash-tab" onclick="switchDash('add')">
+                <i class="fas fa-plus-circle"></i> Ku Dar Alaab
+            </button>
+        </div>
+
+        <!-- Inventory View -->
+        <div id="inventoryView" class="dash-view active">
+            <div class="view-header">
+                <h3><i class="fas fa-boxes"></i> Dhammaan Alaabta</h3>
                 <div class="search-wrapper">
-                    <i class="fas fa-search search-icon"></i>
-                    <input type="text" id="searchInput" placeholder="Raadi goobta..." onkeyup="searchLocations()" />
-                    <button id="clearBtn" class="clear-btn" onclick="clearSearch()"><i class="fas fa-times-circle"></i></button>
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="searchProduct" placeholder="Raadi alaab..." onkeyup="renderInventory()" />
                 </div>
-                <div class="filter-tags">
-                    <button class="filter-btn active" data-filter="all" onclick="filterLocations('all')">Dhammaan</button>
-                    <button class="filter-btn" data-filter="Supermarket" onclick="filterLocations('Supermarket')"><i class="fas fa-store"></i> Supermarket</button>
-                    <button class="filter-btn" data-filter="Kilinik" onclick="filterLocations('Kilinik')"><i class="fas fa-clinic-medical"></i> Kilinik</button>
-                    <button class="filter-btn" data-filter="Pharmacy" onclick="filterLocations('Pharmacy')"><i class="fas fa-prescription-bottle-alt"></i> Pharmacy</button>
-                    <button class="filter-btn" data-filter="Herbal" onclick="filterLocations('Herbal')"><i class="fas fa-leaf"></i> Herbal</button>
-                </div>
-                <p id="resultsCount" class="results-count">20 goobood oo la helay</p>
             </div>
-            <section class="grid" id="locationGrid"></section>
-        </section>
+            <div id="inventoryGrid" class="inventory-grid"></div>
+        </div>
 
-        <!-- Admin Panel (Hidden by default) -->
-        <section class="admin-section" id="adminSection" style="display:none;">
-            <div class="admin-header">
-                <h2><i class="fas fa-tools"></i> Maamulka Goobaha</h2>
-                <p class="admin-subtitle">Ku dar ama tirtir goobo</p>
+        <!-- Sales View -->
+        <div id="salesView" class="dash-view">
+            <div class="view-header">
+                <h3><i class="fas fa-shopping-cart"></i> Iibka</h3>
             </div>
-            
-            <div id="adminLock">
-                <div class="admin-lock-icon"><i class="fas fa-lock"></i></div>
-                <h3><i class="fas fa-shield-alt"></i> Geli Maamulka</h3>
-                <p style="color:#64748b; margin-bottom:15px;">Geli Email &amp; Password</p>
-                <div class="admin-password-form">
-                    <input type="email" id="adminEmail" placeholder="Email-kaaga" />
-                    <input type="password" id="adminPassword" placeholder="Password-ka" />
-                    <button onclick="checkAdminLogin()" class="add-btn"><i class="fas fa-unlock"></i> Gali</button>
-                </div>
-                <p id="adminError" class="admin-message error" style="display:none;">⚠️ Email ama Password waa khalad!</p>
-            </div>
+            <div id="salesList" class="sales-list"></div>
+        </div>
 
-            <div id="adminContent" style="display:none;">
-                <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:15px;">
-                    <h3><i class="fas fa-plus-circle"></i> Ku Dar Goob Cusub</h3>
-                    <button onclick="lockAdmin()" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Ka Bax</button>
+        <!-- Add Product View -->
+        <div id="addView" class="dash-view">
+            <div class="view-header">
+                <h3><i class="fas fa-plus-circle"></i> Ku Dar Alaab Cusub</h3>
+            </div>
+            <div class="add-form">
+                <div class="form-group">
+                    <label><i class="fas fa-tag"></i> Magaca Alaabta</label>
+                    <input type="text" id="productName" placeholder="Tusaale: Lubaan Dawada Ilkaha" />
                 </div>
-                <div class="admin-form">
-                    <input type="text" id="newName" placeholder="Magaca Goobta" />
-                    <input type="text" id="newAddress" placeholder="Ciwaanka" />
-                    <select id="newType">
-                        <option value="Supermarket">Supermarket</option>
-                        <option value="Kilinik">Kilinik</option>
-                        <option value="Pharmacy">Pharmacy</option>
+                <div class="form-group">
+                    <label><i class="fas fa-list"></i> Nooca</label>
+                    <select id="productCategory">
+                        <option value="Dental">Dental</option>
                         <option value="Herbal">Herbal</option>
+                        <option value="Pharmacy">Pharmacy</option>
+                        <option value="Supermarket">Supermarket</option>
+                        <option value="Other">Other</option>
                     </select>
-                    <button onclick="addLocation()" class="add-btn"><i class="fas fa-save"></i> Ku Dar</button>
                 </div>
-                <p id="adminMessage" class="admin-message"></p>
-                
-                <div class="admin-location-list">
-                    <h4><i class="fas fa-list"></i> Goobaha Hadda Jira</h4>
-                    <div id="adminLocationList" class="admin-list"></div>
+                <div class="form-group">
+                    <label><i class="fas fa-dollar-sign"></i> Qiimaha</label>
+                    <input type="number" id="productPrice" placeholder="0.00" step="0.01" />
                 </div>
+                <div class="form-group">
+                    <label><i class="fas fa-sort-numeric-up"></i> Tirada</label>
+                    <input type="number" id="productQuantity" placeholder="0" />
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-barcode"></i> Barcode / SKU</label>
+                    <input type="text" id="productSku" placeholder="SKU-001" />
+                </div>
+                <button class="auth-btn" onclick="addProduct()">
+                    <i class="fas fa-save"></i> Ku Dar Alaab
+                </button>
+                <p class="auth-error" id="productError"></p>
             </div>
-        </section>
-    </main>
+        </div>
+    </section>
 
+    <!-- Footer -->
     <footer>
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-brand">
-                    <i class="fas fa-tooth"></i>
-                    <span class="brand-text">Lubaan <span>Products</span></span>
-                    <p>Lubaanta Dawada Ilkaha &amp; Herbalka</p>
+                    <i class="fas fa-boxes"></i>
+                    <span>Inventory <span>System</span></span>
+                    <p>Maamul hantida ganacsigaaga</p>
                 </div>
                 <div class="footer-contact">
                     <h4><i class="fas fa-phone"></i> Xiriir</h4>
                     <a href="https://wa.me/252634008040" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
                     <a href="tel:+252634008040"><i class="fas fa-phone"></i> 0634008040</a>
                 </div>
-                <div class="footer-locations">
-                    <h4><i class="fas fa-map-marker-alt"></i> Goobaha</h4>
-                    <span>Hargeisa</span><span>Burco</span><span>Boorama</span>
+                <div class="footer-links">
+                    <h4><i class="fas fa-info-circle"></i> Macluumaad</h4>
+                    <a onclick="switchAuth('login')">Soo Gal</a>
+                    <a onclick="switchAuth('signup')">Diiwaangeli</a>
                 </div>
             </div>
-            <div class="visitor-stats">
-                <span id="visitorCounter">👤 Booqdayaasha: 0</span>
-                <span id="visitorLocation"><i class="fas fa-map-marker-alt"></i> Hargeisa, Somaliland</span>
-            </div>
             <div class="footer-bottom">
-                <p>&copy; 2026 Lubaan Products. Dhammaan xuquuqda way xumaantahay.</p>
+                <p>&copy; 2026 Inventory Management System. Dhammaan xuquuqda way xumaantahay.</p>
             </div>
         </div>
     </footer>
 
-    <script>
-        const consentGiven = localStorage.getItem('consentGiven');
-        function showBanner() { document.getElementById('consent-banner').style.display = 'flex'; }
-        function hideBanner() { document.getElementById('consent-banner').style.display = 'none'; }
-        function acceptConsent() {
-            gtag('consent', 'update', { 'ad_storage': 'granted', 'ad_user_data': 'granted', 'ad_personalization': 'granted', 'analytics_storage': 'granted' });
-            localStorage.setItem('consentGiven', 'true');
-            hideBanner();
-            setTimeout(() => location.reload(), 500);
-        }
-        function denyConsent() {
-            gtag('consent', 'update', { 'ad_storage': 'denied', 'ad_user_data': 'denied', 'ad_personalization': 'denied', 'analytics_storage': 'denied' });
-            localStorage.setItem('consentGiven', 'false');
-            hideBanner();
-        }
-        function showSettings() { document.getElementById('settings-modal').style.display = 'flex'; }
-        function closeSettings() { document.getElementById('settings-modal').style.display = 'none'; }
-        function saveSettings() {
-            const analytics = document.getElementById('consent-analytics').checked;
-            const advertising = document.getElementById('consent-advertising').checked;
-            const personalization = document.getElementById('consent-personalization').checked;
-            gtag('consent', 'update', {
-                'ad_storage': advertising ? 'granted' : 'denied',
-                'ad_user_data': advertising ? 'granted' : 'denied',
-                'ad_personalization': personalization ? 'granted' : 'denied',
-                'analytics_storage': analytics ? 'granted' : 'denied'
-            });
-            localStorage.setItem('consentGiven', 'true');
-            closeSettings();
-            hideBanner();
-            if (analytics) setTimeout(() => location.reload(), 500);
-        }
-        if (!consentGiven) showBanner();
-    </script>
-
     <script src="script.js"></script>
 </body>
 </html>
-

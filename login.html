@@ -1,0 +1,116 @@
+﻿<!DOCTYPE html>
+<html lang="so">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login - Prime Inventory System</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔐</text></svg>" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Inter',sans-serif;background:linear-gradient(135deg,#0f172a 0%,#1e3a8a 100%);color:#0f172a;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+        .login-container{background:white;border-radius:24px;padding:48px 40px;max-width:440px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,0.3);animation:slideUp .6s ease}
+        @keyframes slideUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+        .logo{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:30px}
+        .logo-icon{width:56px;height:56px;background:linear-gradient(135deg,#2563eb,#1d4ed8);border-radius:16px;display:flex;align-items:center;justify-content:center;color:white;font-size:1.6rem;box-shadow:0 8px 24px rgba(37,99,235,0.4)}
+        .logo-text{display:flex;flex-direction:column;line-height:1.1}
+        .logo-text span:first-child{font-size:1.3rem;font-weight:800}
+        .logo-text span:last-child{font-size:0.7rem;font-weight:700;color:#2563eb;text-transform:uppercase;letter-spacing:.1em}
+        h1{font-size:1.6rem;font-weight:800;text-align:center;margin-bottom:8px}
+        .subtitle{text-align:center;color:#64748b;font-size:.9rem;margin-bottom:30px}
+        .form-group{margin-bottom:20px}
+        .form-group label{display:block;font-size:.85rem;font-weight:600;margin-bottom:8px}
+        .form-group label i{color:#2563eb;margin-right:6px}
+        .form-group input{width:100%;padding:14px 18px;border:2px solid #e2e8f0;border-radius:12px;font-family:'Inter',sans-serif;font-size:.95rem;outline:none;transition:all .3s}
+        .form-group input:focus{border-color:#2563eb;box-shadow:0 0 0 4px rgba(37,99,235,.1)}
+        .password-wrapper{position:relative;display:flex;align-items:center}
+        .password-wrapper input{padding-right:50px}
+        .toggle-password{position:absolute;right:14px;background:none;border:none;color:#94a3b8;font-size:1.1rem;cursor:pointer;padding:6px;border-radius:6px;transition:all .3s}
+        .toggle-password:hover{color:#2563eb;background:#eff6ff}
+        .login-btn{width:100%;padding:16px;background:linear-gradient(135deg,#2563eb,#1d4ed8);color:white;border:none;border-radius:12px;font-family:'Inter',sans-serif;font-weight:700;font-size:1rem;cursor:pointer;transition:all .3s;box-shadow:0 6px 20px rgba(37,99,235,.3);margin-top:8px}
+        .login-btn:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(37,99,235,.4)}
+        .login-btn:disabled{opacity:.6;cursor:not-allowed;transform:none}
+        .error-msg{color:#ef4444;font-size:.85rem;text-align:center;margin-top:12px;min-height:20px;font-weight:500}
+        .divider{display:flex;align-items:center;gap:12px;margin:24px 0;color:#94a3b8;font-size:.8rem}
+        .divider::before,.divider::after{content:'';flex:1;height:1px;background:#e2e8f0}
+        .signup-link{text-align:center;font-size:.9rem;color:#64748b}
+        .signup-link a{color:#2563eb;font-weight:700;text-decoration:none;cursor:pointer}
+        .signup-link a:hover{text-decoration:underline}
+        .owner-link{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:20px;padding:12px;background:linear-gradient(135deg,#fef3c7,#fde68a);border-radius:12px;font-size:.85rem;font-weight:600;color:#92400e;text-decoration:none;transition:all .3s}
+        .owner-link:hover{transform:translateY(-2px);box-shadow:0 4px 14px rgba(245,158,11,.3)}
+        .back-home{display:block;text-align:center;margin-top:20px;color:#94a3b8;font-size:.85rem;text-decoration:none}
+        .back-home:hover{color:#2563eb}
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="logo">
+            <div class="logo-icon"><i class="fas fa-chart-line"></i></div>
+            <div class="logo-text"><span>Prime</span><span>Inventory</span></div>
+        </div>
+        <h1>Welcome Back 👋</h1>
+        <p class="subtitle">Sign in to your account to continue</p>
+        <form onsubmit="handleLogin(event)">
+            <div class="form-group">
+                <label><i class="fas fa-envelope"></i> Email Address</label>
+                <input type="email" id="email" placeholder="you@example.com" required />
+            </div>
+            <div class="form-group">
+                <label><i class="fas fa-lock"></i> Password</label>
+                <div class="password-wrapper">
+                    <input type="password" id="password" placeholder="••••••••" required />
+                    <button type="button" class="toggle-password" onclick="togglePassword()" title="Show password">
+                        <i class="fas fa-eye" id="eyeIcon"></i>
+                    </button>
+                </div>
+            </div>
+            <button type="submit" class="login-btn" id="loginBtn"><i class="fas fa-sign-in-alt"></i> Sign In</button>
+            <p class="error-msg" id="errorMsg"></p>
+        </form>
+        <div class="divider">or</div>
+        <p class="signup-link">Don't have an account? <a onclick="window.location.href='/signup'">Sign Up</a></p>
+        <a href="/owner" class="owner-link"><i class="fas fa-crown"></i> Login as Owner</a>
+        <a href="/" class="back-home"><i class="fas fa-arrow-left"></i> Back to Home</a>
+    </div>
+    <script>
+        function togglePassword() {
+            const p = document.getElementById('password');
+            const icon = document.getElementById('eyeIcon');
+            if (p.type === 'password') { p.type = 'text'; icon.classList.remove('fa-eye'); icon.classList.add('fa-eye-slash'); }
+            else { p.type = 'password'; icon.classList.remove('fa-eye-slash'); icon.classList.add('fa-eye'); }
+        }
+        async function handleLogin(e) {
+            e.preventDefault();
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+            const errorMsg = document.getElementById('errorMsg');
+            const loginBtn = document.getElementById('loginBtn');
+            errorMsg.textContent = '';
+            loginBtn.disabled = true;
+            loginBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Signing in...';
+            try {
+                const res = await fetch('/api/tenant/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password, language: 'so' })
+                });
+                const data = await res.json();
+                if (res.ok) {
+                    localStorage.setItem('token', data.token);
+                    localStorage.setItem('tenant', JSON.stringify(data.tenant));
+                    window.location.href = '/dashboard';
+                } else {
+                    errorMsg.textContent = data.error || 'Login failed!';
+                    loginBtn.disabled = false;
+                    loginBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Sign In';
+                }
+            } catch (err) {
+                errorMsg.textContent = 'Network error. Please try again.';
+                loginBtn.disabled = false;
+                loginBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Sign In';
+            }
+        }
+    </script>
+</body>
+</html>

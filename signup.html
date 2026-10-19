@@ -1,0 +1,119 @@
+﻿<!DOCTYPE html>
+<html lang="so">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign Up - Prime Inventory System</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📝</text></svg>" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Inter',sans-serif;background:linear-gradient(135deg,#0f172a 0%,#1e3a8a 100%);color:#0f172a;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+        .signup-container{background:white;border-radius:24px;padding:40px;max-width:500px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,0.3);animation:slideUp .6s ease;max-height:95vh;overflow-y:auto}
+        @keyframes slideUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+        .logo{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:20px}
+        .logo-icon{width:48px;height:48px;background:linear-gradient(135deg,#2563eb,#1d4ed8);border-radius:14px;display:flex;align-items:center;justify-content:center;color:white;font-size:1.4rem}
+        .logo-text{display:flex;flex-direction:column;line-height:1.1}
+        .logo-text span:first-child{font-size:1.2rem;font-weight:800}
+        .logo-text span:last-child{font-size:.65rem;font-weight:700;color:#2563eb;text-transform:uppercase;letter-spacing:.1em}
+        h1{font-size:1.5rem;font-weight:800;text-align:center;margin-bottom:6px}
+        .subtitle{text-align:center;color:#64748b;font-size:.85rem;margin-bottom:24px}
+        .form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+        .form-group{margin-bottom:14px}
+        .form-group label{display:block;font-size:.8rem;font-weight:600;margin-bottom:6px}
+        .form-group label i{color:#2563eb;margin-right:5px}
+        .form-group input,.form-group select{width:100%;padding:12px 14px;border:2px solid #e2e8f0;border-radius:10px;font-family:'Inter',sans-serif;font-size:.9rem;outline:none;transition:all .3s}
+        .form-group input:focus,.form-group select:focus{border-color:#2563eb;box-shadow:0 0 0 4px rgba(37,99,235,.1)}
+        .signup-btn{width:100%;padding:14px;background:linear-gradient(135deg,#2563eb,#1d4ed8);color:white;border:none;border-radius:10px;font-family:'Inter',sans-serif;font-weight:700;font-size:.95rem;cursor:pointer;transition:all .3s;margin-top:8px}
+        .signup-btn:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(37,99,235,.4)}
+        .signup-btn:disabled{opacity:.6;cursor:not-allowed;transform:none}
+        .error-msg{color:#ef4444;font-size:.85rem;text-align:center;margin-top:10px;min-height:20px;font-weight:500}
+        .success-msg{color:#10b981;font-size:.85rem;text-align:center;margin-top:10px;font-weight:500}
+        .login-link{text-align:center;font-size:.85rem;color:#64748b;margin-top:16px}
+        .login-link a{color:#2563eb;font-weight:700;text-decoration:none;cursor:pointer}
+        .login-link a:hover{text-decoration:underline}
+    </style>
+</head>
+<body>
+    <div class="signup-container">
+        <div class="logo">
+            <div class="logo-icon"><i class="fas fa-chart-line"></i></div>
+            <div class="logo-text"><span>Prime</span><span>Inventory</span></div>
+        </div>
+        <h1>Create Your Account</h1>
+        <p class="subtitle">Start managing your business today</p>
+        <form onsubmit="handleSignup(event)">
+            <div class="form-row">
+                <div class="form-group"><label><i class="fas fa-user"></i> Full Name</label><input type="text" id="name" placeholder="John Doe" required /></div>
+                <div class="form-group"><label><i class="fas fa-store"></i> Business Name</label><input type="text" id="businessName" placeholder="My Company" required /></div>
+            </div>
+            <div class="form-group"><label><i class="fas fa-envelope"></i> Email Address</label><input type="email" id="email" placeholder="you@example.com" required /></div>
+            <div class="form-row">
+                <div class="form-group"><label><i class="fas fa-phone"></i> Phone</label><input type="tel" id="phone" placeholder="+252 63 400 8040" required /></div>
+                <div class="form-group"><label><i class="fas fa-globe"></i> Country</label>
+                    <select id="phoneCountry"><option value="252">Somaliland (+252)</option><option value="1">USA (+1)</option><option value="44">UK (+44)</option><option value="971">UAE (+971)</option><option value="254">Kenya (+254)</option></select>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group"><label><i class="fas fa-lock"></i> Password</label><input type="password" id="password" placeholder="Min 6 characters" required minlength="6" /></div>
+                <div class="form-group"><label><i class="fas fa-lock"></i> Confirm Password</label><input type="password" id="password2" placeholder="Repeat password" required minlength="6" /></div>
+            </div>
+            <div class="form-row">
+                <div class="form-group"><label><i class="fas fa-map-marker-alt"></i> City</label><input type="text" id="city" placeholder="Hargeisa" /></div>
+                <div class="form-group"><label><i class="fas fa-language"></i> Language</label>
+                    <select id="language"><option value="so">Somali</option><option value="en">English</option><option value="ar">Arabic</option></select>
+                </div>
+            </div>
+            <button type="submit" class="signup-btn" id="signupBtn"><i class="fas fa-user-plus"></i> Create Account</button>
+            <p class="error-msg" id="errorMsg"></p>
+            <p class="success-msg" id="successMsg"></p>
+        </form>
+        <p class="login-link">Already have an account? <a onclick="window.location.href='/login'">Sign In</a></p>
+    </div>
+    <script>
+        async function handleSignup(e) {
+            e.preventDefault();
+            const errorMsg = document.getElementById('errorMsg');
+            const successMsg = document.getElementById('successMsg');
+            const signupBtn = document.getElementById('signupBtn');
+            const name = document.getElementById('name').value.trim();
+            const businessName = document.getElementById('businessName').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const phoneCountry = document.getElementById('phoneCountry').value;
+            const password = document.getElementById('password').value;
+            const password2 = document.getElementById('password2').value;
+            const city = document.getElementById('city').value.trim();
+            const language = document.getElementById('language').value;
+            errorMsg.textContent = '';
+            successMsg.textContent = '';
+            if (password !== password2) { errorMsg.textContent = 'Passwords do not match!'; return; }
+            signupBtn.disabled = true;
+            signupBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating account...';
+            try {
+                const res = await fetch('/api/tenant/signup', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name, business_name: businessName, email, phone, phone_country: phoneCountry, password, city, language, country: 'Somaliland' })
+                });
+                const data = await res.json();
+                if (res.ok) {
+                    localStorage.setItem('token', data.token);
+                    localStorage.setItem('tenant', JSON.stringify(data.tenant));
+                    successMsg.textContent = '✅ Account created! Redirecting...';
+                    setTimeout(() => window.location.href = '/dashboard', 1000);
+                } else {
+                    errorMsg.textContent = data.error || 'Signup failed!';
+                    signupBtn.disabled = false;
+                    signupBtn.innerHTML = '<i class="fas fa-user-plus"></i> Create Account';
+                }
+            } catch (err) {
+                errorMsg.textContent = 'Network error. Please try again.';
+                signupBtn.disabled = false;
+                signupBtn.innerHTML = '<i class="fas fa-user-plus"></i> Create Account';
+            }
+        }
+    </script>
+</body>
+</html>

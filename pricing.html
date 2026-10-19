@@ -1,0 +1,203 @@
+﻿<!DOCTYPE html>
+<html lang="so">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pricing - Prime Inventory System</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💰</text></svg>" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f8fafc 0%, #eff6ff 100%);
+            color: #0f172a;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 40px 20px; }
+        .header { text-align: center; margin-bottom: 50px; }
+        .header h1 { font-size: 2.8rem; font-weight: 900; margin-bottom: 12px; }
+        .header h1 span { background: linear-gradient(135deg, #2563eb, #10b981); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .header p { font-size: 1.15rem; color: #64748b; max-width: 600px; margin: 0 auto; }
+        
+        .plans {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+        .plan {
+            background: white;
+            border-radius: 20px;
+            padding: 32px 24px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            border: 2px solid transparent;
+            transition: all 0.3s;
+            position: relative;
+        }
+        .plan:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(0,0,0,0.1); }
+        .plan.featured { border-color: #2563eb; box-shadow: 0 20px 50px rgba(37,99,235,0.2); }
+        .plan.featured::before {
+            content: 'MOST POPULAR';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            color: white;
+            padding: 4px 16px;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+        }
+        .plan-name { font-size: 1.3rem; font-weight: 800; margin-bottom: 8px; }
+        .plan-desc { font-size: 0.85rem; color: #64748b; margin-bottom: 20px; min-height: 40px; }
+        .plan-price { margin-bottom: 24px; }
+        .plan-price .amount { font-size: 2.5rem; font-weight: 900; }
+        .plan-price .period { font-size: 0.9rem; color: #64748b; }
+        .plan-features { list-style: none; margin-bottom: 24px; }
+        .plan-features li {
+            padding: 8px 0;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 1px solid #f1f5f9;
+        }
+        .plan-features li i { color: #10b981; font-size: 0.85rem; }
+        .plan-btn {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Inter', sans-serif;
+        }
+        .plan-btn.primary {
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            color: white;
+            box-shadow: 0 4px 14px rgba(37,99,235,0.3);
+        }
+        .plan-btn.primary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(37,99,235,0.4); }
+        .plan-btn.secondary {
+            background: #f1f5f9;
+            color: #0f172a;
+        }
+        .plan-btn.secondary:hover { background: #e2e8f0; }
+        
+        .billing-toggle {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 40px;
+            background: white;
+            padding: 6px;
+            border-radius: 50px;
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+        }
+        .billing-toggle button {
+            padding: 10px 28px;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Inter', sans-serif;
+            background: transparent;
+            color: #64748b;
+        }
+        .billing-toggle button.active {
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            color: white;
+        }
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #2563eb;
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="/dashboard" class="back-btn"><i class="fas fa-arrow-left"></i> Back to Dashboard</a>
+        
+        <div class="header">
+            <h1>The Perfect Balance of <span>Features & Affordability</span></h1>
+            <p>Choose the plan that fits your business today and upgrade as your team and accounting needs grow.</p>
+        </div>
+
+        <div class="billing-toggle">
+            <button class="active" onclick="setCycle('monthly', this)">Monthly</button>
+            <button onclick="setCycle('yearly', this)">Yearly (Save 17%)</button>
+        </div>
+
+        <div class="plans" id="plansGrid"></div>
+    </div>
+
+    <script>
+        const PLANS = [
+            { id: 'free', name: 'Free', desc: 'Perfect for small & micro-businesses', price: 0, features: ['1 User', '50 Products', 'Basic Reports', 'Community Support'] },
+            { id: 'starter', name: 'Starter', desc: 'For growing businesses', price: 9.99, features: ['3 Users', '500 Products', 'Schedules', 'Email Support'] },
+            { id: 'professional', name: 'Professional', desc: 'Complete accounting workspace', price: 29.99, features: ['10 Users', '5000 Products', 'AI Assistant', 'PDF/Excel Reports', 'Priority Support'], featured: true },
+            { id: 'enterprise', name: 'Enterprise', desc: 'For scaling operations', price: 99.99, features: ['50 Users', 'Unlimited Products', 'Custom Domain', 'API Access', 'Dedicated Support'] },
+            { id: 'ultimate', name: 'Ultimate', desc: 'For large organizations', price: 299.99, features: ['Unlimited Users', 'Unlimited Products', 'White Label', '24/7 Support', 'Custom Development'] }
+        ];
+
+        let cycle = 'monthly';
+
+        function setCycle(c, btn) {
+            cycle = c;
+            document.querySelectorAll('.billing-toggle button').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            renderPlans();
+        }
+
+        function renderPlans() {
+            const grid = document.getElementById('plansGrid');
+            grid.innerHTML = PLANS.map(plan => {
+                const price = cycle === 'yearly' ? (plan.price * 10).toFixed(2) : plan.price.toFixed(2);
+                const period = cycle === 'yearly' ? '/year' : '/month';
+                return `
+                    <div class="plan ${plan.featured ? 'featured' : ''}">
+                        <div class="plan-name">${plan.name}</div>
+                        <div class="plan-desc">${plan.desc}</div>
+                        <div class="plan-price">
+                            <span class="amount">$${price}</span>
+                            <span class="period">${period}</span>
+                        </div>
+                        <ul class="plan-features">
+                            ${plan.features.map(f => `<li><i class="fas fa-check-circle"></i> ${f}</li>`).join('')}
+                        </ul>
+                        <button class="plan-btn ${plan.featured ? 'primary' : 'secondary'}" onclick="selectPlan('${plan.id}')">
+                            ${plan.price === 0 ? 'Start Free' : 'Start Free Trial'}
+                        </button>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function selectPlan(planId) {
+            localStorage.setItem('selectedPlan', planId);
+            localStorage.setItem('billingCycle', cycle);
+            window.location.href = '/payment?plan=' + planId + '&cycle=' + cycle;
+        }
+
+        renderPlans();
+    </script>
+</body>
+</html>
+

@@ -1,19 +1,22 @@
-﻿# Windows
-Thumbs.db
-Desktop.ini
+﻿# Dependencies
+node_modules/
+package-lock.json
 
-# macOS
-.DS_Store
+# Environment
+.env
 
-# VS Code
-.vscode/
-*.code-workspace
+# Database
+*.sqlite
+*.db
 
-# Temp
-*.tmp
-*.temp
+# Logs
 *.log
+npm-debug.log*
 
-# Assets (optional)
-assets/images/*.psd
-assets/images/*.ai
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/

@@ -4,10 +4,13 @@ package-lock.json
 
 # Environment
 .env
+.env.local
+.env.production
 
 # Database
 *.sqlite
 *.db
+database.sqlite
 
 # Logs
 *.log
@@ -20,3 +23,7 @@ Thumbs.db
 # IDE
 .vscode/
 .idea/
+
+# Build
+dist/
+build/

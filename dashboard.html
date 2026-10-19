@@ -3,27 +3,23 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title data-i18n="title">Prime Inventory System</title>
-    <link rel="icon" type="image/png" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>" />
+    <title>Inventory System Prime - Dashboard</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <style>
         * { margin:0; padding:0; box-sizing:border-box; }
         body { font-family: 'Inter', sans-serif; background: #f8fafc; color: #0f172a; line-height: 1.6; }
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
         
         /* Topbar */
-        .topbar { position: fixed; top: 0; left: 0; right: 0; height: 72px; background: rgba(255,255,255,0.9); backdrop-filter: blur(20px); border-bottom: 1px solid #e2e8f0; display: flex; align-items: center; justify-content: space-between; padding: 0 24px; z-index: 1000; }
+        .topbar { position: fixed; top: 0; left: 0; right: 0; height: 72px; background: rgba(255,255,255,0.95); backdrop-filter: blur(20px); border-bottom: 1px solid #e2e8f0; display: flex; align-items: center; justify-content: space-between; padding: 0 24px; z-index: 1000; }
         .topbar-left { display: flex; align-items: center; gap: 16px; }
-        .menu-toggle { display: none; background: none; border: none; font-size: 1.2rem; cursor: pointer; color: #0f172a; }
         .logo { display: flex; align-items: center; gap: 10px; }
         .logo-icon { width: 40px; height: 40px; background: linear-gradient(135deg, #2563eb, #1d4ed8); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2rem; }
         .logo-text { display: flex; flex-direction: column; line-height: 1.1; }
         .logo-text span:first-child { font-size: 1rem; font-weight: 800; }
         .logo-text span:last-child { font-size: 0.65rem; font-weight: 700; color: #2563eb; text-transform: uppercase; }
         .topbar-right { display: flex; align-items: center; gap: 12px; }
-        .lang-selector { padding: 8px 12px; border: 1px solid #e2e8f0; border-radius: 8px; font-family: 'Inter', sans-serif; font-size: 0.85rem; cursor: pointer; background: white; }
         .user-menu { display: flex; align-items: center; gap: 10px; padding: 4px; border-radius: 10px; }
         .user-menu img { width: 36px; height: 36px; border-radius: 50%; }
         .user-info { display: flex; flex-direction: column; line-height: 1.2; }
@@ -31,7 +27,7 @@
         .user-role { font-size: 0.7rem; color: #64748b; }
         
         /* Sidebar */
-        .sidebar { position: fixed; top: 72px; left: 0; bottom: 0; width: 260px; background: white; border-right: 1px solid #e2e8f0; padding: 20px 0; z-index: 900; transition: transform 0.3s; overflow-y: auto; }
+        .sidebar { position: fixed; top: 72px; left: 0; bottom: 0; width: 270px; background: white; border-right: 1px solid #e2e8f0; padding: 20px 0; z-index: 900; transition: transform 0.3s; overflow-y: auto; }
         .sidebar-nav { display: flex; flex-direction: column; gap: 4px; padding: 0 16px; }
         .nav-item { display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-radius: 10px; color: #64748b; text-decoration: none; font-size: 0.9rem; font-weight: 500; cursor: pointer; transition: all 0.2s; }
         .nav-item i { width: 20px; text-align: center; }
@@ -40,7 +36,7 @@
         .nav-badge { margin-left: auto; font-size: 0.6rem; font-weight: 700; padding: 2px 8px; border-radius: 20px; background: #ede9fe; color: #6d28d9; }
         
         /* Main Content */
-        .main-content { margin-left: 260px; margin-top: 72px; padding: 32px; min-height: calc(100vh - 72px); }
+        .main-content { margin-left: 270px; margin-top: 72px; padding: 32px; min-height: calc(100vh - 72px); }
         .page-header { margin-bottom: 24px; }
         .page-header h1 { font-size: 1.75rem; font-weight: 800; }
         .page-header p { color: #64748b; font-size: 0.95rem; }
@@ -63,6 +59,7 @@
         .btn-primary { display: inline-flex; align-items: center; gap: 8px; background: linear-gradient(135deg, #2563eb, #1d4ed8); color: white; border: none; padding: 12px 28px; border-radius: 10px; font-weight: 600; font-size: 0.95rem; cursor: pointer; transition: all 0.3s; font-family: 'Inter', sans-serif; }
         .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(37,99,235,0.4); }
         .btn-secondary { display: inline-flex; align-items: center; gap: 8px; background: #f1f5f9; color: #0f172a; border: none; padding: 12px 28px; border-radius: 10px; font-weight: 600; font-size: 0.95rem; cursor: pointer; font-family: 'Inter', sans-serif; }
+        .btn-danger { display: inline-flex; align-items: center; gap: 8px; background: #fee2e2; color: #991b1b; border: none; padding: 8px 16px; border-radius: 8px; font-weight: 600; font-size: 0.8rem; cursor: pointer; font-family: 'Inter', sans-serif; }
         
         /* Tables */
         .data-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
@@ -74,6 +71,22 @@
         .status-pending { background: #fef3c7; color: #92400e; }
         .status-overdue { background: #fee2e2; color: #991b1b; }
         
+        /* Sections */
+        .content-section { display: none; }
+        .content-section.active { display: block; animation: fadeIn 0.4s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        
+        /* Quick Links */
+        .quick-links-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+        .quick-link-card { display: flex; align-items: center; gap: 16px; padding: 16px 20px; background: #f8fafc; border: 2px solid #e2e8f0; border-radius: 12px; text-decoration: none; color: #0f172a; transition: all 0.3s; cursor: pointer; }
+        .quick-link-card:hover { border-color: #2563eb; background: #eff6ff; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(37,99,235,0.1); }
+        .ql-icon { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; flex-shrink: 0; }
+        .ql-info { flex: 1; display: flex; flex-direction: column; }
+        .ql-info strong { font-size: 0.95rem; font-weight: 700; }
+        .ql-info small { font-size: 0.75rem; color: #64748b; }
+        .ql-arrow { color: #94a3b8; transition: all 0.3s; }
+        .quick-link-card:hover .ql-arrow { color: #2563eb; transform: translateX(4px); }
+        
         /* Accounting */
         .accounting-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
         .accounting-calculator { background: white; padding: 24px; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
@@ -84,75 +97,54 @@
         .calc-btn.operator { background: #dbeafe; color: #1e40af; }
         .calc-btn.equal { background: #2563eb; color: white; }
         .calc-btn.clear { background: #fee2e2; color: #991b1b; }
-        
         .calc-history { background: white; padding: 24px; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
         .calc-history h3 { font-size: 1.1rem; margin-bottom: 16px; }
         .history-item { padding: 12px; border-bottom: 1px solid #f1f5f9; font-size: 0.9rem; display: flex; justify-content: space-between; align-items: center; }
         .history-item:last-child { border-bottom: none; }
         .history-item .result { font-weight: 700; color: #2563eb; }
         
-        /* Sections (hidden by default) */
-        .content-section { display: none; }
-        .content-section.active { display: block; animation: fadeIn 0.4s ease; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        
-        /* Search */
-        .search-box { position: relative; margin-bottom: 20px; }
-        .search-box input { width: 100%; padding: 12px 16px 12px 44px; border: 2px solid #e2e8f0; border-radius: 10px; font-family: 'Inter', sans-serif; font-size: 0.95rem; outline: none; }
-        .search-box i { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: #94a3b8; }
+        /* Modal */
+        .modal { display: none; position: fixed; inset: 0; background: rgba(15,23,42,0.6); backdrop-filter: blur(8px); z-index: 2000; justify-content: center; align-items: center; padding: 20px; }
+        .modal.open { display: flex; }
+        .modal-content { background: white; border-radius: 20px; padding: 32px; max-width: 500px; width: 100%; max-height: 90vh; overflow-y: auto; }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .modal-header h2 { font-size: 1.3rem; }
+        .modal-close { background: none; border: none; font-size: 1.5rem; cursor: pointer; color: #64748b; }
         
         /* Responsive */
         @media (max-width: 1024px) {
             .sidebar { transform: translateX(-100%); }
             .sidebar.open { transform: translateX(0); }
             .main-content { margin-left: 0; }
-            .menu-toggle { display: block; }
             .accounting-grid { grid-template-columns: 1fr; }
         }
         @media (max-width: 768px) {
             .stats-grid { grid-template-columns: 1fr; }
             .main-content { padding: 20px; }
-            .user-info { display: none; }
             .form-section { padding: 20px; }
+            .quick-links-grid { grid-template-columns: 1fr; }
         }
-    
-        /* Quick Links */
-        .quick-links-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
-        .quick-link-card { display: flex; align-items: center; gap: 16px; padding: 16px 20px; background: #f8fafc; border: 2px solid #e2e8f0; border-radius: 12px; text-decoration: none; color: #0f172a; transition: all 0.3s; }
-        .quick-link-card:hover { border-color: #2563eb; background: #eff6ff; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(37,99,235,0.1); }
-        .ql-icon { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; flex-shrink: 0; }
-        .ql-info { flex: 1; display: flex; flex-direction: column; }
-        .ql-info strong { font-size: 0.95rem; font-weight: 700; }
-        .ql-info small { font-size: 0.75rem; color: #64748b; }
-        .ql-arrow { color: #94a3b8; transition: all 0.3s; }
-        .quick-link-card:hover .ql-arrow { color: #2563eb; transform: translateX(4px); }
-        @media (max-width: 600px) { .quick-links-grid { grid-template-columns: 1fr; } }
-</style>
+    </style>
 </head>
 <body>
     <!-- Topbar -->
     <div class="topbar">
         <div class="topbar-left">
-            <button class="menu-toggle" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
+            <button onclick="toggleSidebar()" style="display:none; background:none; border:none; font-size:1.2rem; cursor:pointer;" id="menuToggle"><i class="fas fa-bars"></i></button>
             <div class="logo">
                 <div class="logo-icon"><i class="fas fa-chart-line"></i></div>
                 <div class="logo-text">
-                    <span data-i18n="appName">Prime Inventory</span>
-                    <span data-i18n="appSub">System</span>
+                    <span>Prime Inventory</span>
+                    <span>System</span>
                 </div>
             </div>
         </div>
         <div class="topbar-right">
-            <select class="lang-selector" id="langSelector" onchange="changeLanguage(this.value)">
-                <option value="so">🇸🇴 Somali</option>
-                <option value="en">🇬🇧 English</option>
-                <option value="ar">🇸🇦 العربية</option>
-            </select>
             <div class="user-menu">
                 <img src="https://ui-avatars.com/api/?name=Ridwan+Farah&background=2563eb&color=fff" alt="User" />
                 <div class="user-info">
-                    <span class="user-name" id="userName">Ridwan Farah</span>
-                    <span class="user-role" id="userRole">Admin</span>
+                    <span class="user-name">Ridwan Farah</span>
+                    <span class="user-role">Admin</span>
                 </div>
             </div>
         </div>
@@ -161,54 +153,54 @@
     <!-- Sidebar -->
     <aside class="sidebar" id="sidebar">
         <nav class="sidebar-nav">
-            <a class="nav-item active" onclick="showSection('dashboard')" data-section="dashboard">
+            <a class="nav-item active" onclick="showSection('dashboard')">
                 <i class="fas fa-th-large"></i>
-                <span data-i18n="dashboard">Dashboard</span>
+                <span>Dashboard</span>
             </a>
-            <a class="nav-item" onclick="showSection('invoicing')" data-section="invoicing">
+            <a class="nav-item" onclick="showSection('invoicing')">
                 <i class="fas fa-file-invoice-dollar"></i>
-                <span data-i18n="invoicing">Invoicing & GST</span>
+                <span>Invoicing & GST</span>
             </a>
-            <a class="nav-item" onclick="showSection('stock')" data-section="stock">
+            <a class="nav-item" onclick="showSection('stock')">
                 <i class="fas fa-boxes"></i>
-                <span data-i18n="stock">Stock Management</span>
+                <span>Stock Management</span>
             </a>
-            <a class="nav-item" onclick="showSection('ai')" data-section="ai">
+            <a class="nav-item" onclick="showSection('ai')">
                 <i class="fas fa-robot"></i>
-                <span data-i18n="ai">AI Assistant</span>
+                <span>AI Assistant</span>
                 <span class="nav-badge">NEW</span>
             </a>
-            <a class="nav-item" onclick="showSection('migration')" data-section="migration">
+            <a class="nav-item" onclick="showSection('migration')">
                 <i class="fas fa-database"></i>
-                <span data-i18n="migration">Data Migration</span>
+                <span>Data Migration</span>
             </a>
-            <a class="nav-item" onclick="showSection('reports')" data-section="reports">
+            <a class="nav-item" onclick="showSection('reports')">
                 <i class="fas fa-chart-bar"></i>
-                <span data-i18n="reports">Reports</span>
+                <span>Reports</span>
             </a>
-            <a class="nav-item" onclick="showSection('customers')" data-section="customers">
+            <a class="nav-item" onclick="showSection('customers')">
                 <i class="fas fa-users"></i>
-                <span data-i18n="customers">Customers</span>
+                <span>Customers</span>
             </a>
-            <a class="nav-item" onclick="showSection('accounting')" data-section="accounting">
+            <a class="nav-item" onclick="showSection('accounting')">
                 <i class="fas fa-calculator"></i>
-                <span data-i18n="accounting">Accounting</span>
+                <span>Accounting</span>
             </a>
-            <a class="nav-item" onclick="showSection('pricing')" data-section="pricing">
+            <a class="nav-item" onclick="showSection('pricing')">
                 <i class="fas fa-tags"></i>
-                <span data-i18n="pricing">Pricing</span>
+                <span>Pricing</span>
             </a>
-            <a class="nav-item" onclick="showSection('payment')" data-section="payment">
+            <a class="nav-item" onclick="showSection('payment')">
                 <i class="fas fa-credit-card"></i>
-                <span data-i18n="payment">Payment</span>
+                <span>Payment</span>
             </a>
-            <a class="nav-item" onclick="showSection('company')" data-section="company">
+            <a class="nav-item" onclick="showSection('company')">
                 <i class="fas fa-building"></i>
-                <span data-i18n="company">Company</span>
+                <span>Company</span>
             </a>
-            <a class="nav-item" onclick="showSection('individual')" data-section="individual">
+            <a class="nav-item" onclick="showSection('individual')">
                 <i class="fas fa-user"></i>
-                <span data-i18n="individual">Individual</span>
+                <span>Individual</span>
             </a>
         </nav>
     </aside>
@@ -218,26 +210,63 @@
         <!-- Dashboard Section -->
         <div class="content-section active" id="section-dashboard">
             <div class="page-header">
-                <h1 data-i18n="welcome">Welcome Back, Ridwan! 👋</h1>
-                <p data-i18n="welcomeSub">Here's what's happening with your business today.</p>
+                <h1>Welcome Back, Ridwan! 👋</h1>
+                <p>Here's what's happening with your business today.</p>
             </div>
             
             <div class="stats-grid">
                 <div class="stat-card">
                     <div class="stat-icon" style="background:#dbeafe;color:#1e40af;"><i class="fas fa-dollar-sign"></i></div>
-                    <div class="stat-info"><span id="totalRevenue">$48,250</span><small data-i18n="totalRevenue">Total Revenue</small></div>
+                    <div class="stat-info"><span id="totalRevenue">$48,250</span><small>Total Revenue</small></div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-icon" style="background:#d1fae5;color:#065f46;"><i class="fas fa-boxes"></i></div>
-                    <div class="stat-info"><span id="totalProducts">1,580</span><small data-i18n="totalProducts">Stock Items</small></div>
+                    <div class="stat-info"><span id="totalProducts">1,580</span><small>Stock Items</small></div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-icon" style="background:#fef3c7;color:#92400e;"><i class="fas fa-file-invoice"></i></div>
-                    <div class="stat-info"><span id="totalInvoices">245</span><small data-i18n="totalInvoices">GST & e-Invoices</small></div>
+                    <div class="stat-info"><span id="totalInvoices">245</span><small>GST & e-Invoices</small></div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-icon" style="background:#e0e7ff;color:#4338ca;"><i class="fas fa-shopping-cart"></i></div>
-                    <div class="stat-info"><span id="totalOrders">86</span><small data-i18n="totalOrders">Active Orders</small></div>
+                    <div class="stat-info"><span id="totalOrders">86</span><small>Active Orders</small></div>
+                </div>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="form-section">
+                <h2><i class="fas fa-link"></i> Quick Links</h2>
+                <div class="quick-links-grid">
+                    <a href="/dashboard" class="quick-link-card">
+                        <div class="ql-icon" style="background:#dbeafe;color:#1e40af;"><i class="fas fa-th-large"></i></div>
+                        <div class="ql-info"><strong>Dashboard</strong><small>http://localhost:5001/dashboard</small></div>
+                        <i class="fas fa-arrow-right ql-arrow"></i>
+                    </a>
+                    <a href="/login" class="quick-link-card">
+                        <div class="ql-icon" style="background:#d1fae5;color:#065f46;"><i class="fas fa-sign-in-alt"></i></div>
+                        <div class="ql-info"><strong>Login</strong><small>http://localhost:5001/login</small></div>
+                        <i class="fas fa-arrow-right ql-arrow"></i>
+                    </a>
+                    <a href="/signup" class="quick-link-card">
+                        <div class="ql-icon" style="background:#fef3c7;color:#92400e;"><i class="fas fa-user-plus"></i></div>
+                        <div class="ql-info"><strong>Signup</strong><small>http://localhost:5001/signup</small></div>
+                        <i class="fas fa-arrow-right ql-arrow"></i>
+                    </a>
+                    <a href="/payment" class="quick-link-card">
+                        <div class="ql-icon" style="background:#e0e7ff;color:#4338ca;"><i class="fas fa-credit-card"></i></div>
+                        <div class="ql-info"><strong>Payment</strong><small>http://localhost:5001/payment</small></div>
+                        <i class="fas fa-arrow-right ql-arrow"></i>
+                    </a>
+                    <a href="/owner" class="quick-link-card">
+                        <div class="ql-icon" style="background:#fce7f3;color:#9d174d;"><i class="fas fa-crown"></i></div>
+                        <div class="ql-info"><strong>Owner</strong><small>http://localhost:5001/owner</small></div>
+                        <i class="fas fa-arrow-right ql-arrow"></i>
+                    </a>
+                    <a href="/pricing" class="quick-link-card">
+                        <div class="ql-icon" style="background:#d1fae5;color:#065f46;"><i class="fas fa-tags"></i></div>
+                        <div class="ql-info"><strong>Pricing</strong><small>http://localhost:5001/pricing</small></div>
+                        <i class="fas fa-arrow-right ql-arrow"></i>
+                    </a>
                 </div>
             </div>
         </div>
@@ -245,31 +274,22 @@
         <!-- Invoicing Section -->
         <div class="content-section" id="section-invoicing">
             <div class="page-header">
-                <h1 data-i18n="invoicing">Invoicing & GST</h1>
-                <p data-i18n="invoicingSub">Create and manage invoices</p>
+                <h1>Invoicing & GST</h1>
+                <p>Create and manage invoices</p>
             </div>
             <div class="form-section">
-                <h2><i class="fas fa-plus-circle"></i> <span data-i18n="createInvoice">Create Invoice</span></h2>
-                <div class="form-group">
-                    <label data-i18n="customerName">Customer Name</label>
-                    <input type="text" id="invCustomer" placeholder="John Doe" />
-                </div>
-                <div class="form-group">
-                    <label data-i18n="amount">Amount</label>
-                    <input type="number" id="invAmount" placeholder="0.00" step="0.01" />
-                </div>
-                <div class="form-group">
-                    <label data-i18n="description">Description</label>
-                    <textarea id="invDescription" rows="3" placeholder="Invoice description..."></textarea>
-                </div>
-                <button class="btn-primary" onclick="createInvoice()"><i class="fas fa-save"></i> <span data-i18n="saveInvoice">Save Invoice</span></button>
+                <h2><i class="fas fa-plus-circle"></i> Create Invoice</h2>
+                <div class="form-group"><label>Customer Name</label><input type="text" id="invCustomer" placeholder="John Doe" /></div>
+                <div class="form-group"><label>Amount</label><input type="number" id="invAmount" placeholder="0.00" step="0.01" /></div>
+                <div class="form-group"><label>Description</label><textarea id="invDescription" rows="3" placeholder="Invoice description..."></textarea></div>
+                <button class="btn-primary" onclick="createInvoice()"><i class="fas fa-save"></i> Save Invoice</button>
             </div>
             <div class="form-section">
-                <h2><i class="fas fa-list"></i> <span data-i18n="recentInvoices">Recent Invoices</span></h2>
+                <h2><i class="fas fa-list"></i> Recent Invoices</h2>
                 <table class="data-table">
-                    <thead><tr><th>Invoice #</th><th>Customer</th><th>Amount</th><th>Status</th><th>Date</th></tr></thead>
+                    <thead><tr><th>Invoice #</th><th>Customer</th><th>Amount</th><th>Status</th><th>Date</th><th>Actions</th></tr></thead>
                     <tbody id="invoicesTable">
-                        <tr><td>#INV-0042</td><td>Paris Dental Clinic</td><td>$1,240</td><td><span class="status-badge status-paid">Paid</span></td><td>Oct 15, 2026</td></tr>
+                        <tr><td>#INV-0042</td><td>Paris Dental Clinic</td><td>$1,240</td><td><span class="status-badge status-paid">Paid</span></td><td>Oct 15, 2026</td><td><button class="btn-danger" onclick="deleteInvoice(this)"><i class="fas fa-trash"></i></button></td></tr>
                     </tbody>
                 </table>
             </div>
@@ -278,31 +298,22 @@
         <!-- Stock Section -->
         <div class="content-section" id="section-stock">
             <div class="page-header">
-                <h1 data-i18n="stock">Stock Management</h1>
-                <p data-i18n="stockSub">Manage your inventory</p>
+                <h1>Stock Management</h1>
+                <p>Manage your inventory</p>
             </div>
             <div class="form-section">
-                <h2><i class="fas fa-plus-circle"></i> <span data-i18n="addProduct">Add Product</span></h2>
-                <div class="form-group">
-                    <label data-i18n="productName">Product Name</label>
-                    <input type="text" id="prodName" placeholder="Lubaan Dawada Ilkaha" />
-                </div>
-                <div class="form-group">
-                    <label data-i18n="price">Price</label>
-                    <input type="number" id="prodPrice" placeholder="0.00" step="0.01" />
-                </div>
-                <div class="form-group">
-                    <label data-i18n="quantity">Quantity</label>
-                    <input type="number" id="prodQty" placeholder="0" />
-                </div>
-                <button class="btn-primary" onclick="addProduct()"><i class="fas fa-save"></i> <span data-i18n="saveProduct">Save Product</span></button>
+                <h2><i class="fas fa-plus-circle"></i> Add Product</h2>
+                <div class="form-group"><label>Product Name</label><input type="text" id="prodName" placeholder="Lubaan Dawada Ilkaha" /></div>
+                <div class="form-group"><label>Price</label><input type="number" id="prodPrice" placeholder="0.00" step="0.01" /></div>
+                <div class="form-group"><label>Quantity</label><input type="number" id="prodQty" placeholder="0" /></div>
+                <button class="btn-primary" onclick="addProduct()"><i class="fas fa-save"></i> Save Product</button>
             </div>
             <div class="form-section">
-                <h2><i class="fas fa-list"></i> <span data-i18n="productList">Product List</span></h2>
+                <h2><i class="fas fa-list"></i> Product List</h2>
                 <table class="data-table">
-                    <thead><tr><th>Product</th><th>Price</th><th>Quantity</th><th>Status</th></tr></thead>
+                    <thead><tr><th>Product</th><th>Price</th><th>Quantity</th><th>Status</th><th>Actions</th></tr></thead>
                     <tbody id="productsTable">
-                        <tr><td>Lubaan Dawada Ilkaha</td><td>$2.50</td><td>1000</td><td><span class="status-badge status-paid">In Stock</span></td></tr>
+                        <tr><td>Lubaan Dawada Ilkaha</td><td>$2.50</td><td>1000</td><td><span class="status-badge status-paid">In Stock</span></td><td><button class="btn-danger" onclick="deleteProduct(this)"><i class="fas fa-trash"></i></button></td></tr>
                     </tbody>
                 </table>
             </div>
@@ -311,13 +322,13 @@
         <!-- AI Section -->
         <div class="content-section" id="section-ai">
             <div class="page-header">
-                <h1 data-i18n="ai">AI Assistant</h1>
-                <p data-i18n="aiSub">Ask questions about your business</p>
+                <h1>AI Assistant</h1>
+                <p>Ask questions about your business</p>
             </div>
             <div class="form-section">
-                <h2><i class="fas fa-robot"></i> <span data-i18n="aiChat">AI Chat</span></h2>
+                <h2><i class="fas fa-robot"></i> AI Chat</h2>
                 <div id="aiMessages" style="max-height:400px;overflow-y:auto;margin-bottom:16px;padding:16px;background:#f8fafc;border-radius:10px;">
-                    <div style="margin-bottom:12px;"><strong>AI:</strong> <span data-i18n="aiGreeting">Hello! How can I help you today?</span></div>
+                    <div style="margin-bottom:12px;"><strong>AI:</strong> Hello! How can I help you today?</div>
                 </div>
                 <div style="display:flex;gap:8px;">
                     <input type="text" id="aiInput" placeholder="Ask me anything..." style="flex:1;padding:12px 16px;border:2px solid #e2e8f0;border-radius:10px;font-family:'Inter',sans-serif;" onkeydown="if(event.key==='Enter') sendAI()" />
@@ -329,15 +340,15 @@
         <!-- Migration Section -->
         <div class="content-section" id="section-migration">
             <div class="page-header">
-                <h1 data-i18n="migration">Data Migration</h1>
-                <p data-i18n="migrationSub">Import your historical data</p>
+                <h1>Data Migration</h1>
+                <p>Import your historical data</p>
             </div>
             <div class="form-section">
-                <h2><i class="fas fa-cloud-upload-alt"></i> <span data-i18n="importData">Import Data</span></h2>
+                <h2><i class="fas fa-cloud-upload-alt"></i> Import Data</h2>
                 <div style="border:2px dashed #e2e8f0;border-radius:16px;padding:40px;text-align:center;cursor:pointer;" onclick="document.getElementById('fileInput').click()">
                     <i class="fas fa-cloud-upload-alt" style="font-size:3rem;color:#2563eb;margin-bottom:16px;"></i>
-                    <h3 data-i18n="dragDrop">Drag & drop your files here</h3>
-                    <p data-i18n="orClick">or click to browse</p>
+                    <h3>Drag & drop your files here</h3>
+                    <p>or click to browse</p>
                     <input type="file" id="fileInput" style="display:none;" accept=".csv,.xlsx,.json" onchange="handleFileUpload(event)" />
                 </div>
             </div>
@@ -346,28 +357,35 @@
         <!-- Reports Section -->
         <div class="content-section" id="section-reports">
             <div class="page-header">
-                <h1 data-i18n="reports">Reports</h1>
-                <p data-i18n="reportsSub">View and download reports</p>
+                <h1>Reports</h1>
+                <p>View and download reports</p>
             </div>
             <div class="form-section">
-                <h2><i class="fas fa-chart-bar"></i> <span data-i18n="salesReport">Sales Report</span></h2>
-                <button class="btn-primary" onclick="downloadReport('sales')"><i class="fas fa-download"></i> <span data-i18n="downloadExcel">Download Excel</span></button>
-                <button class="btn-secondary" onclick="downloadReport('pdf')"><i class="fas fa-file-pdf"></i> <span data-i18n="downloadPDF">Download PDF</span></button>
+                <h2><i class="fas fa-chart-bar"></i> Sales Report</h2>
+                <button class="btn-primary" onclick="downloadReport('sales')"><i class="fas fa-download"></i> Download Excel</button>
+                <button class="btn-secondary" onclick="downloadReport('pdf')"><i class="fas fa-file-pdf"></i> Download PDF</button>
             </div>
         </div>
 
         <!-- Customers Section -->
         <div class="content-section" id="section-customers">
             <div class="page-header">
-                <h1 data-i18n="customers">Customers</h1>
-                <p data-i18n="customersSub">Manage your customers</p>
+                <h1>Customers</h1>
+                <p>Manage your customers</p>
             </div>
             <div class="form-section">
-                <h2><i class="fas fa-users"></i> <span data-i18n="customerList">Customer List</span></h2>
+                <h2><i class="fas fa-plus-circle"></i> Add Customer</h2>
+                <div class="form-group"><label>Name</label><input type="text" id="custName" placeholder="John Doe" /></div>
+                <div class="form-group"><label>Email</label><input type="email" id="custEmail" placeholder="john@example.com" /></div>
+                <div class="form-group"><label>Phone</label><input type="tel" id="custPhone" placeholder="+252 63 400 8040" /></div>
+                <button class="btn-primary" onclick="addCustomer()"><i class="fas fa-save"></i> Save Customer</button>
+            </div>
+            <div class="form-section">
+                <h2><i class="fas fa-list"></i> Customer List</h2>
                 <table class="data-table">
-                    <thead><tr><th>Name</th><th>Email</th><th>Phone</th><th>Status</th></tr></thead>
+                    <thead><tr><th>Name</th><th>Email</th><th>Phone</th><th>Actions</th></tr></thead>
                     <tbody id="customersTable">
-                        <tr><td>Paris Dental Clinic</td><td>paris@dental.com</td><td>+252 63 400 8040</td><td><span class="status-badge status-paid">Active</span></td></tr>
+                        <tr><td>Paris Dental Clinic</td><td>paris@dental.com</td><td>+252 63 400 8040</td><td><button class="btn-danger" onclick="deleteCustomer(this)"><i class="fas fa-trash"></i></button></td></tr>
                     </tbody>
                 </table>
             </div>
@@ -376,12 +394,12 @@
         <!-- Accounting Section -->
         <div class="content-section" id="section-accounting">
             <div class="page-header">
-                <h1 data-i18n="accounting">Accounting Calculator</h1>
-                <p data-i18n="accountingSub">Calculate and save your accounting totals</p>
+                <h1>Accounting Calculator</h1>
+                <p>Calculate and save your accounting totals</p>
             </div>
             <div class="accounting-grid">
                 <div class="accounting-calculator">
-                    <h2><i class="fas fa-calculator"></i> <span data-i18n="calculator">Calculator</span></h2>
+                    <h2><i class="fas fa-calculator"></i> Calculator</h2>
                     <div class="calc-display" id="calcDisplay">0</div>
                     <div class="calc-buttons">
                         <button class="calc-btn clear" onclick="calcClear()">C</button>
@@ -405,16 +423,16 @@
                         <button class="calc-btn equal" onclick="calcEqual()">=</button>
                     </div>
                     <button class="btn-primary" onclick="saveCalculation()" style="width:100%;margin-top:16px;justify-content:center;">
-                        <i class="fas fa-save"></i> <span data-i18n="saveCalculation">Save Calculation</span>
+                        <i class="fas fa-save"></i> Save Calculation
                     </button>
                 </div>
                 <div class="calc-history">
-                    <h3><i class="fas fa-history"></i> <span data-i18n="calculationHistory">Calculation History</span></h3>
+                    <h3><i class="fas fa-history"></i> Calculation History</h3>
                     <div id="calcHistory">
-                        <p style="color:#94a3b8;text-align:center;padding:20px;" data-i18n="noHistory">No calculations saved yet.</p>
+                        <p style="color:#94a3b8;text-align:center;padding:20px;">No calculations saved yet.</p>
                     </div>
                     <button class="btn-secondary" onclick="clearHistory()" style="width:100%;margin-top:16px;justify-content:center;">
-                        <i class="fas fa-trash"></i> <span data-i18n="clearHistory">Clear History</span>
+                        <i class="fas fa-trash"></i> Clear History
                     </button>
                 </div>
             </div>
@@ -423,38 +441,26 @@
         <!-- Pricing Section -->
         <div class="content-section" id="section-pricing">
             <div class="page-header">
-                <h1 data-i18n="pricing">Pricing Plans</h1>
-                <p data-i18n="pricingSub">Choose the plan that fits your business</p>
+                <h1>Pricing Plans</h1>
+                <p>Choose the plan that fits your business</p>
             </div>
-            <div class="stats-grid" id="pricingGrid">
-                <!-- Pricing cards will be loaded by JS -->
-            </div>
+            <div class="stats-grid" id="pricingGrid"></div>
         </div>
 
         <!-- Payment Section -->
         <div class="content-section" id="section-payment">
             <div class="page-header">
-                <h1 data-i18n="payment">Payment</h1>
-                <p data-i18n="paymentSub">Complete your payment</p>
+                <h1>Payment</h1>
+                <p>Complete your payment</p>
             </div>
             <div class="form-section">
-                <h2><i class="fas fa-credit-card"></i> <span data-i18n="paymentMethods">Payment Methods</span></h2>
+                <h2><i class="fas fa-credit-card"></i> Payment Methods</h2>
                 <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;">
-                    <div style="padding:16px;border:2px solid #e2e8f0;border-radius:12px;cursor:pointer;" onclick="selectPayment('zaad')">
-                        <strong>Zaad</strong><br><small>0634008040</small>
-                    </div>
-                    <div style="padding:16px;border:2px solid #e2e8f0;border-radius:12px;cursor:pointer;" onclick="selectPayment('edahab')">
-                        <strong>Edahab</strong><br><small>0654008040</small>
-                    </div>
-                    <div style="padding:16px;border:2px solid #e2e8f0;border-radius:12px;cursor:pointer;" onclick="selectPayment('premier')">
-                        <strong>Premier Bank</strong><br><small>0634008040</small>
-                    </div>
-                    <div style="padding:16px;border:2px solid #e2e8f0;border-radius:12px;cursor:pointer;" onclick="selectPayment('salama')">
-                        <strong>Salama Bank</strong><br><small>0654008040</small>
-                    </div>
-                    <div style="padding:16px;border:2px solid #e2e8f0;border-radius:12px;cursor:pointer;" onclick="selectPayment('dahabshiil')">
-                        <strong>Dahabshiil</strong><br><small>0654008040</small>
-                    </div>
+                    <div style="padding:16px;border:2px solid #e2e8f0;border-radius:12px;cursor:pointer;" onclick="selectPayment('zaad')"><strong>Zaad</strong><br><small>0634008040</small></div>
+                    <div style="padding:16px;border:2px solid #e2e8f0;border-radius:12px;cursor:pointer;" onclick="selectPayment('edahab')"><strong>Edahab</strong><br><small>0654008040</small></div>
+                    <div style="padding:16px;border:2px solid #e2e8f0;border-radius:12px;cursor:pointer;" onclick="selectPayment('premier')"><strong>Premier Bank</strong><br><small>0634008040</small></div>
+                    <div style="padding:16px;border:2px solid #e2e8f0;border-radius:12px;cursor:pointer;" onclick="selectPayment('salama')"><strong>Salama Bank</strong><br><small>0654008040</small></div>
+                    <div style="padding:16px;border:2px solid #e2e8f0;border-radius:12px;cursor:pointer;" onclick="selectPayment('dahabshiil')"><strong>Dahabshiil</strong><br><small>0654008040</small></div>
                 </div>
             </div>
         </div>
@@ -462,324 +468,47 @@
         <!-- Company Section -->
         <div class="content-section" id="section-company">
             <div class="page-header">
-                <h1 data-i18n="company">Company Account</h1>
-                <p data-i18n="companySub">Manage your company account</p>
+                <h1>Company Account</h1>
+                <p>Manage your company account</p>
             </div>
             <div class="form-section">
-                <h2><i class="fas fa-building"></i> <span data-i18n="companyInfo">Company Information</span></h2>
-                <div class="form-group"><label data-i18n="companyName">Company Name</label><input type="text" value="Prime Inventory System" /></div>
-                <div class="form-group"><label data-i18n="email">Email</label><input type="email" value="akiidonly12@gmail.com" /></div>
-                <div class="form-group"><label data-i18n="phone">Phone</label><input type="tel" value="+252 63 400 8040" /></div>
-                <div class="form-group"><label data-i18n="address">Address</label><input type="text" value="Hargeisa, Somaliland" /></div>
-                <button class="btn-primary"><i class="fas fa-save"></i> <span data-i18n="save">Save</span></button>
+                <h2><i class="fas fa-building"></i> Company Information</h2>
+                <div class="form-group"><label>Company Name</label><input type="text" value="Prime Inventory System" /></div>
+                <div class="form-group"><label>Email</label><input type="email" value="akiidonly12@gmail.com" /></div>
+                <div class="form-group"><label>Phone</label><input type="tel" value="+252 63 400 8040" /></div>
+                <div class="form-group"><label>Address</label><input type="text" value="Hargeisa, Somaliland" /></div>
+                <button class="btn-primary"><i class="fas fa-save"></i> Save</button>
             </div>
         </div>
 
         <!-- Individual Section -->
         <div class="content-section" id="section-individual">
             <div class="page-header">
-                <h1 data-i18n="individual">Individual Account</h1>
-                <p data-i18n="individualSub">Manage your personal account</p>
+                <h1>Individual Account</h1>
+                <p>Manage your personal account</p>
             </div>
             <div class="form-section">
-                <h2><i class="fas fa-user"></i> <span data-i18n="personalInfo">Personal Information</span></h2>
-                <div class="form-group"><label data-i18n="fullName">Full Name</label><input type="text" value="Ridwan Farah" /></div>
-                <div class="form-group"><label data-i18n="email">Email</label><input type="email" value="akiidonly12@gmail.com" /></div>
-                <div class="form-group"><label data-i18n="phone">Phone</label><input type="tel" value="+252 63 400 8040" /></div>
-                <button class="btn-primary"><i class="fas fa-save"></i> <span data-i18n="save">Save</span></button>
+                <h2><i class="fas fa-user"></i> Personal Information</h2>
+                <div class="form-group"><label>Full Name</label><input type="text" value="Ridwan Farah" /></div>
+                <div class="form-group"><label>Email</label><input type="email" value="akiidonly12@gmail.com" /></div>
+                <div class="form-group"><label>Phone</label><input type="tel" value="+252 63 400 8040" /></div>
+                <button class="btn-primary"><i class="fas fa-save"></i> Save</button>
             </div>
         </div>
     </main>
 
     <script>
         // ============================================
-        // LANGUAGE SYSTEM
-        // ============================================
-        const translations = {
-            so: {
-                title: 'Prime Inventory System',
-                appName: 'Prime Inventory',
-                appSub: 'System',
-                dashboard: 'Dashboard',
-                login: 'Login',
-                signup: 'Signup',
-                owner: 'Owner',
-                quickLinks: 'Quick Links - All Pages',
-                quickLinksSub: 'Click any link to open that page',
-                login: 'Login',
-                signup: 'Signup',
-                owner: 'Owner',
-                quickLinks: 'Quick Links - Dhammaan Bogagga',
-                quickLinksSub: 'Riix link kasta si aad u furto boggaas',
-                invoicing: 'Invoicing & GST',
-                stock: 'Stock Management',
-                ai: 'AI Assistant',
-                migration: 'Data Migration',
-                reports: 'Reports',
-                customers: 'Customers',
-                accounting: 'Accounting',
-                pricing: 'Pricing',
-                payment: 'Payment',
-                company: 'Company',
-                individual: 'Individual',
-                welcome: 'Welcome Back, Ridwan! 👋',
-                welcomeSub: 'Here\'s what\'s happening with your business today.',
-                totalRevenue: 'Total Revenue',
-                totalProducts: 'Stock Items',
-                totalInvoices: 'GST & e-Invoices',
-                totalOrders: 'Active Orders',
-                createInvoice: 'Create Invoice',
-                customerName: 'Customer Name',
-                amount: 'Amount',
-                description: 'Description',
-                saveInvoice: 'Save Invoice',
-                recentInvoices: 'Recent Invoices',
-                addProduct: 'Add Product',
-                productName: 'Product Name',
-                price: 'Price',
-                quantity: 'Quantity',
-                saveProduct: 'Save Product',
-                productList: 'Product List',
-                aiChat: 'AI Chat',
-                aiGreeting: 'Hello! How can I help you today?',
-                importData: 'Import Data',
-                dragDrop: 'Drag & drop your files here',
-                orClick: 'or click to browse',
-                salesReport: 'Sales Report',
-                downloadExcel: 'Download Excel',
-                downloadPDF: 'Download PDF',
-                customerList: 'Customer List',
-                calculator: 'Calculator',
-                saveCalculation: 'Save Calculation',
-                calculationHistory: 'Calculation History',
-                noHistory: 'No calculations saved yet.',
-                clearHistory: 'Clear History',
-                pricingSub: 'Choose the plan that fits your business',
-                paymentSub: 'Complete your payment',
-                paymentMethods: 'Payment Methods',
-                companySub: 'Manage your company account',
-                companyInfo: 'Company Information',
-                companyName: 'Company Name',
-                email: 'Email',
-                phone: 'Phone',
-                address: 'Address',
-                save: 'Save',
-                individualSub: 'Manage your personal account',
-                personalInfo: 'Personal Information',
-                fullName: 'Full Name',
-                invoicingSub: 'Create and manage invoices',
-                stockSub: 'Manage your inventory',
-                aiSub: 'Ask questions about your business',
-                migrationSub: 'Import your historical data',
-                reportsSub: 'View and download reports',
-                customersSub: 'Manage your customers',
-                accountingSub: 'Calculate and save your accounting totals'
-            },
-            en: {
-                title: 'Prime Inventory System',
-                appName: 'Prime Inventory',
-                appSub: 'System',
-                dashboard: 'Dashboard',
-                login: 'Login',
-                signup: 'Signup',
-                owner: 'Owner',
-                quickLinks: 'Quick Links - All Pages',
-                quickLinksSub: 'Click any link to open that page',
-                login: 'Login',
-                signup: 'Signup',
-                owner: 'Owner',
-                quickLinks: 'Quick Links - Dhammaan Bogagga',
-                quickLinksSub: 'Riix link kasta si aad u furto boggaas',
-                invoicing: 'Invoicing & GST',
-                stock: 'Stock Management',
-                ai: 'AI Assistant',
-                migration: 'Data Migration',
-                reports: 'Reports',
-                customers: 'Customers',
-                accounting: 'Accounting',
-                pricing: 'Pricing',
-                payment: 'Payment',
-                company: 'Company',
-                individual: 'Individual',
-                welcome: 'Welcome Back, Ridwan! 👋',
-                welcomeSub: 'Here\'s what\'s happening with your business today.',
-                totalRevenue: 'Total Revenue',
-                totalProducts: 'Stock Items',
-                totalInvoices: 'GST & e-Invoices',
-                totalOrders: 'Active Orders',
-                createInvoice: 'Create Invoice',
-                customerName: 'Customer Name',
-                amount: 'Amount',
-                description: 'Description',
-                saveInvoice: 'Save Invoice',
-                recentInvoices: 'Recent Invoices',
-                addProduct: 'Add Product',
-                productName: 'Product Name',
-                price: 'Price',
-                quantity: 'Quantity',
-                saveProduct: 'Save Product',
-                productList: 'Product List',
-                aiChat: 'AI Chat',
-                aiGreeting: 'Hello! How can I help you today?',
-                importData: 'Import Data',
-                dragDrop: 'Drag & drop your files here',
-                orClick: 'or click to browse',
-                salesReport: 'Sales Report',
-                downloadExcel: 'Download Excel',
-                downloadPDF: 'Download PDF',
-                customerList: 'Customer List',
-                calculator: 'Calculator',
-                saveCalculation: 'Save Calculation',
-                calculationHistory: 'Calculation History',
-                noHistory: 'No calculations saved yet.',
-                clearHistory: 'Clear History',
-                pricingSub: 'Choose the plan that fits your business',
-                paymentSub: 'Complete your payment',
-                paymentMethods: 'Payment Methods',
-                companySub: 'Manage your company account',
-                companyInfo: 'Company Information',
-                companyName: 'Company Name',
-                email: 'Email',
-                phone: 'Phone',
-                address: 'Address',
-                save: 'Save',
-                individualSub: 'Manage your personal account',
-                personalInfo: 'Personal Information',
-                fullName: 'Full Name',
-                invoicingSub: 'Create and manage invoices',
-                stockSub: 'Manage your inventory',
-                aiSub: 'Ask questions about your business',
-                migrationSub: 'Import your historical data',
-                reportsSub: 'View and download reports',
-                customersSub: 'Manage your customers',
-                accountingSub: 'Calculate and save your accounting totals'
-            },
-            ar: {
-                title: 'نظام المخزون الرئيسي',
-                appName: 'نظام المخزون',
-                appSub: 'الرئيسي',
-                dashboard: 'لوحة التحكم',
-                invoicing: 'الفواتير والضريبة',
-                stock: 'إدارة المخزون',
-                ai: 'المساعد الذكي',
-                migration: 'نقل البيانات',
-                reports: 'التقارير',
-                customers: 'العملاء',
-                accounting: 'المحاسبة',
-                pricing: 'الأسعار',
-                payment: 'الدفع',
-                company: 'الشركة',
-                individual: 'فردي',
-                welcome: 'مرحباً بعودتك، رضوان! 👋',
-                welcomeSub: 'إليك ما يحدث في عملك اليوم.',
-                totalRevenue: 'إجمالي الإيرادات',
-                totalProducts: 'عناصر المخزون',
-                totalInvoices: 'الفواتير الإلكترونية',
-                totalOrders: 'الطلبات النشطة',
-                createInvoice: 'إنشاء فاتورة',
-                customerName: 'اسم العميل',
-                amount: 'المبلغ',
-                description: 'الوصف',
-                saveInvoice: 'حفظ الفاتورة',
-                recentInvoices: 'الفواتير الأخيرة',
-                addProduct: 'إضافة منتج',
-                productName: 'اسم المنتج',
-                price: 'السعر',
-                quantity: 'الكمية',
-                saveProduct: 'حفظ المنتج',
-                productList: 'قائمة المنتجات',
-                aiChat: 'دردشة الذكاء الاصطناعي',
-                aiGreeting: 'مرحباً! كيف يمكنني مساعدتك اليوم؟',
-                importData: 'استيراد البيانات',
-                dragDrop: 'اسحب وأفلت ملفاتك هنا',
-                orClick: 'أو انقر للتصفح',
-                salesReport: 'تقرير المبيعات',
-                downloadExcel: 'تحميل Excel',
-                downloadPDF: 'تحميل PDF',
-                customerList: 'قائمة العملاء',
-                calculator: 'الآلة الحاسبة',
-                saveCalculation: 'حفظ الحساب',
-                calculationHistory: 'سجل الحسابات',
-                noHistory: 'لا توجد حسابات محفوظة بعد.',
-                clearHistory: 'مسح السجل',
-                pricingSub: 'اختر الخطة التي تناسب عملك',
-                paymentSub: 'أكمل الدفع',
-                paymentMethods: 'طرق الدفع',
-                companySub: 'إدارة حساب شركتك',
-                companyInfo: 'معلومات الشركة',
-                companyName: 'اسم الشركة',
-                email: 'البريد الإلكتروني',
-                phone: 'الهاتف',
-                address: 'العنوان',
-                save: 'حفظ',
-                individualSub: 'إدارة حسابك الشخصي',
-                personalInfo: 'المعلومات الشخصية',
-                fullName: 'الاسم الكامل',
-                invoicingSub: 'إنشاء وإدارة الفواتير',
-                stockSub: 'إدارة مخزونك',
-                aiSub: 'اسأل أسئلة عن عملك',
-                migrationSub: 'استيراد بياناتك التاريخية',
-                reportsSub: 'عرض وتحميل التقارير',
-                customersSub: 'إدارة عملائك',
-                accountingSub: 'احسب واحفظ إجماليات المحاسبة'
-            }
-        };
-
-        let currentLang = 'so';
-
-        function changeLanguage(lang) {
-            currentLang = lang;
-            localStorage.setItem('language', lang);
-            document.documentElement.lang = lang;
-            document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
-            
-            // Update all elements with data-i18n
-            document.querySelectorAll('[data-i18n]').forEach(el => {
-                const key = el.getAttribute('data-i18n');
-                if (translations[lang] && translations[lang][key]) {
-                    el.textContent = translations[lang][key];
-                }
-            });
-            
-            // Update page title
-            document.title = translations[lang].title || 'Prime Inventory System';
-            
-            // Update active section header
-            const activeSection = document.querySelector('.content-section.active');
-            if (activeSection) {
-                const sectionId = activeSection.id.replace('section-', '');
-                const navItem = document.querySelector(`[data-section="${sectionId}"]`);
-                if (navItem) {
-                    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-                    navItem.classList.add('active');
-                }
-            }
-        }
-
-        // Load language on page load
-        document.addEventListener('DOMContentLoaded', () => {
-            const savedLang = localStorage.getItem('language') || 'so';
-            document.getElementById('langSelector').value = savedLang;
-            changeLanguage(savedLang);
-        });
-
-        // ============================================
         // SECTION NAVIGATION
         // ============================================
         function showSection(section) {
-            // Hide all sections
             document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
-            
-            // Show selected section
             const target = document.getElementById('section-' + section);
             if (target) target.classList.add('active');
             
-            // Update active nav
             document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-            const navItem = document.querySelector(`[data-section="${section}"]`);
-            if (navItem) navItem.classList.add('active');
+            event.target.closest('.nav-item').classList.add('active');
             
-            // Close sidebar on mobile
             if (window.innerWidth <= 1024) {
                 document.getElementById('sidebar').classList.remove('open');
             }
@@ -787,6 +516,139 @@
 
         function toggleSidebar() {
             document.getElementById('sidebar').classList.toggle('open');
+        }
+
+        // ============================================
+        // INVOICE
+        // ============================================
+        function createInvoice() {
+            const customer = document.getElementById('invCustomer').value;
+            const amount = document.getElementById('invAmount').value;
+            const description = document.getElementById('invDescription').value;
+            
+            if (!customer || !amount) {
+                alert('⚠️ Fadlan buuxi customer iyo amount!');
+                return;
+            }
+            
+            const table = document.getElementById('invoicesTable');
+            const row = table.insertRow(0);
+            row.innerHTML = `
+                <td>#INV-${Date.now().toString().slice(-4)}</td>
+                <td>${customer}</td>
+                <td>$${parseFloat(amount).toFixed(2)}</td>
+                <td><span class="status-badge status-pending">Pending</span></td>
+                <td>${new Date().toLocaleDateString()}</td>
+                <td><button class="btn-danger" onclick="deleteInvoice(this)"><i class="fas fa-trash"></i></button></td>
+            `;
+            
+            document.getElementById('invCustomer').value = '';
+            document.getElementById('invAmount').value = '';
+            document.getElementById('invDescription').value = '';
+            
+            alert('✅ Invoice waa la abuuray!');
+        }
+
+        function deleteInvoice(btn) {
+            if (confirm('Ma hubtaa inaad tirtirto invoice-kan?')) {
+                btn.closest('tr').remove();
+            }
+        }
+
+        // ============================================
+        // PRODUCT
+        // ============================================
+        function addProduct() {
+            const name = document.getElementById('prodName').value;
+            const price = document.getElementById('prodPrice').value;
+            const qty = document.getElementById('prodQty').value;
+            
+            if (!name || !price || !qty) {
+                alert('⚠️ Fadlan buuxi dhammaan meelaha!');
+                return;
+            }
+            
+            const table = document.getElementById('productsTable');
+            const row = table.insertRow(0);
+            row.innerHTML = `
+                <td>${name}</td>
+                <td>$${parseFloat(price).toFixed(2)}</td>
+                <td>${qty}</td>
+                <td><span class="status-badge status-paid">In Stock</span></td>
+                <td><button class="btn-danger" onclick="deleteProduct(this)"><i class="fas fa-trash"></i></button></td>
+            `;
+            
+            document.getElementById('prodName').value = '';
+            document.getElementById('prodPrice').value = '';
+            document.getElementById('prodQty').value = '';
+            
+            alert('✅ Product waa la ku daray!');
+        }
+
+        function deleteProduct(btn) {
+            if (confirm('Ma hubtaa inaad tirtirto product-kan?')) {
+                btn.closest('tr').remove();
+            }
+        }
+
+        // ============================================
+        // CUSTOMER
+        // ============================================
+        function addCustomer() {
+            const name = document.getElementById('custName').value;
+            const email = document.getElementById('custEmail').value;
+            const phone = document.getElementById('custPhone').value;
+            
+            if (!name) {
+                alert('⚠️ Fadlan geli magaca customer-ka!');
+                return;
+            }
+            
+            const table = document.getElementById('customersTable');
+            const row = table.insertRow(0);
+            row.innerHTML = `
+                <td>${name}</td>
+                <td>${email || '-'}</td>
+                <td>${phone || '-'}</td>
+                <td><button class="btn-danger" onclick="deleteCustomer(this)"><i class="fas fa-trash"></i></button></td>
+            `;
+            
+            document.getElementById('custName').value = '';
+            document.getElementById('custEmail').value = '';
+            document.getElementById('custPhone').value = '';
+            
+            alert('✅ Customer waa la ku daray!');
+        }
+
+        function deleteCustomer(btn) {
+            if (confirm('Ma hubtaa inaad tirtirto customer-kan?')) {
+                btn.closest('tr').remove();
+            }
+        }
+
+        // ============================================
+        // AI ASSISTANT
+        // ============================================
+        function sendAI() {
+            const input = document.getElementById('aiInput');
+            const message = input.value.trim();
+            if (!message) return;
+            
+            const messages = document.getElementById('aiMessages');
+            messages.innerHTML += `<div style="margin-bottom:12px;"><strong>You:</strong> ${message}</div>`;
+            input.value = '';
+            
+            setTimeout(() => {
+                const responses = [
+                    'Waan ku fahmay. Waxaad i weydiin kartaa wax ku saabsan alaabta, iibka, ama stats-ka.',
+                    'Alaabtaada waxaad ka arki kartaa qaybta "Stock Management".',
+                    'Iibka waxaad ka arki kartaa qaybta "Invoicing & GST".',
+                    'Waxaad nagala soo xiriiri kartaa WhatsApp: +252 63 400 8040'
+                ];
+                const response = responses[Math.floor(Math.random() * responses.length)];
+                messages.innerHTML += `<div style="margin-bottom:12px;"><strong>AI:</strong> ${response}</div>`;
+                messages.scrollTop = messages.scrollHeight;
+            }, 500);
         }
 
         // ============================================
@@ -802,11 +664,8 @@
         }
 
         function calcNumber(num) {
-            if (calcCurrent === '0' || calcCurrent === '') {
-                calcCurrent = num;
-            } else {
-                calcCurrent += num;
-            }
+            if (calcCurrent === '0' || calcCurrent === '') calcCurrent = num;
+            else calcCurrent += num;
             updateCalcDisplay();
         }
 
@@ -823,7 +682,6 @@
                 const prev = parseFloat(calcPrevious);
                 const curr = parseFloat(calcCurrent);
                 let result;
-                
                 switch(calcOperator) {
                     case '+': result = prev + curr; break;
                     case '-': result = prev - curr; break;
@@ -831,23 +689,16 @@
                     case '/': result = curr !== 0 ? prev / curr : 'Error'; break;
                     default: result = curr;
                 }
-                
                 if (result === 'Error') {
                     calcCurrent = 'Error';
                 } else {
                     calcCurrent = result.toString();
-                    // Save to history
-                    const historyEntry = {
-                        expression: `${prev} ${calcOperator} ${curr}`,
-                        result: result,
-                        date: new Date().toISOString()
-                    };
-                    calcHistory.unshift(historyEntry);
+                    const entry = { expression: `${prev} ${calcOperator} ${curr}`, result: result, date: new Date().toISOString() };
+                    calcHistory.unshift(entry);
                     if (calcHistory.length > 50) calcHistory = calcHistory.slice(0, 50);
                     localStorage.setItem('calcHistory', JSON.stringify(calcHistory));
                     renderCalcHistory();
                 }
-                
                 calcPrevious = '';
                 calcOperator = '';
                 updateCalcDisplay();
@@ -862,11 +713,8 @@
         }
 
         function calcBackspace() {
-            if (calcCurrent.length > 1) {
-                calcCurrent = calcCurrent.slice(0, -1);
-            } else {
-                calcCurrent = '0';
-            }
+            if (calcCurrent.length > 1) calcCurrent = calcCurrent.slice(0, -1);
+            else calcCurrent = '0';
             updateCalcDisplay();
         }
 
@@ -877,11 +725,7 @@
 
         function saveCalculation() {
             if (calcCurrent && calcCurrent !== '0') {
-                const entry = {
-                    expression: calcCurrent,
-                    result: parseFloat(calcCurrent),
-                    date: new Date().toISOString()
-                };
+                const entry = { expression: calcCurrent, result: parseFloat(calcCurrent), date: new Date().toISOString() };
                 calcHistory.unshift(entry);
                 if (calcHistory.length > 50) calcHistory = calcHistory.slice(0, 50);
                 localStorage.setItem('calcHistory', JSON.stringify(calcHistory));
@@ -893,13 +737,11 @@
         function renderCalcHistory() {
             const container = document.getElementById('calcHistory');
             if (!container) return;
-            
             if (calcHistory.length === 0) {
                 container.innerHTML = '<p style="color:#94a3b8;text-align:center;padding:20px;">No calculations saved yet.</p>';
                 return;
             }
-            
-            container.innerHTML = calcHistory.map((h, i) => `
+            container.innerHTML = calcHistory.map(h => `
                 <div class="history-item">
                     <div>
                         <span>${h.expression}</span>
@@ -918,73 +760,11 @@
             }
         }
 
-        // Initialize
         renderCalcHistory();
 
         // ============================================
-        // AI ASSISTANT
+        // PRICING
         // ============================================
-        function sendAI() {
-            const input = document.getElementById('aiInput');
-            const message = input.value.trim();
-            if (!message) return;
-            
-            const messages = document.getElementById('aiMessages');
-            messages.innerHTML += `<div style="margin-bottom:12px;"><strong>You:</strong> ${message}</div>`;
-            input.value = '';
-            
-            setTimeout(() => {
-                const responses = {
-                    so: 'Waan ku fahmay. Waxaad i weydiin kartaa wax ku saabsan alaabta, iibka, ama stats-ka.',
-                    en: 'I understand. You can ask me about products, sales, or stats.',
-                    ar: 'أفهم. يمكنك أن تسألني عن المنتجات أو المبيعات أو الإحصائيات.'
-                };
-                messages.innerHTML += `<div style="margin-bottom:12px;"><strong>AI:</strong> ${responses[currentLang]}</div>`;
-                messages.scrollTop = messages.scrollHeight;
-            }, 500);
-        }
-
-        // ============================================
-        // INVOICE / PRODUCT / CUSTOMER
-        // ============================================
-        function createInvoice() {
-            const customer = document.getElementById('invCustomer').value;
-            const amount = document.getElementById('invAmount').value;
-            if (customer && amount) {
-                alert('✅ Invoice created!');
-                document.getElementById('invCustomer').value = '';
-                document.getElementById('invAmount').value = '';
-            }
-        }
-
-        function addProduct() {
-            const name = document.getElementById('prodName').value;
-            const price = document.getElementById('prodPrice').value;
-            const qty = document.getElementById('prodQty').value;
-            if (name && price && qty) {
-                alert('✅ Product added!');
-                document.getElementById('prodName').value = '';
-                document.getElementById('prodPrice').value = '';
-                document.getElementById('prodQty').value = '';
-            }
-        }
-
-        function handleFileUpload(event) {
-            const files = event.target.files;
-            if (files.length > 0) {
-                alert(`📁 ${files.length} file(s) selected for migration!`);
-            }
-        }
-
-        function downloadReport(type) {
-            alert(`📊 Downloading ${type} report...`);
-        }
-
-        function selectPayment(method) {
-            alert(`💳 Payment method: ${method}`);
-        }
-
-        // Load pricing
         const PLANS = [
             { name: 'Free', price: 0, features: ['1 User', '50 Products'] },
             { name: 'Starter', price: 9.99, features: ['3 Users', '500 Products'] },
@@ -1008,7 +788,30 @@
             `).join('');
         }
         loadPricing();
+
+        // ============================================
+        // PAYMENT
+        // ============================================
+        function selectPayment(method) {
+            alert(`💳 Payment method: ${method}\n\nFadlan u dir lacagta lambarka: 0634008040 (Zaad) ama 0654008040 (Edahab)`);
+        }
+
+        // ============================================
+        // DATA MIGRATION
+        // ============================================
+        function handleFileUpload(event) {
+            const files = event.target.files;
+            if (files.length > 0) {
+                alert(`📁 ${files.length} file(s) selected for migration!`);
+            }
+        }
+
+        // ============================================
+        // REPORTS
+        // ============================================
+        function downloadReport(type) {
+            alert(`📊 Downloading ${type} report...`);
+        }
     </script>
 </body>
 </html>
-

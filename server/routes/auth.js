@@ -139,4 +139,109 @@ router.post('/admin/login', (req, res) => {
     });
 });
 
+
+// ============================================
+// PASSWORD RESET
+// ============================================
+const crypto = require('crypto');
+const { sendEmail, passwordResetEmail } = require('../utils/email');
+
+// Store reset tokens (in production, use database table)
+const resetTokens = new Map();
+
+router.post('/forgot-password', (req, res) => {
+    const { email } = req.body;
+    
+    if (!email) {
+        return res.status(400).json({ error: 'Fadlan geli email-kaaga!' });
+    }
+    
+    db.get('SELECT * FROM tenants WHERE email = ?', [email.toLowerCase()], (err, tenant) => {
+        if (err) return res.status(500).json({ error: err.message });
+        if (!tenant) {
+            return res.json({ message: 'Haddii email-ku jiro, waxaan ku soo dirnay link reset.' });
+        }
+        
+        // Generate token
+        const token = crypto.randomBytes(32).toString('hex');
+        const expires = Date.now() + 3600000; // 1 hour
+        
+        resetTokens.set(token, { tenantId: tenant.id, expires });
+        
+        // Send email
+        const resetLink = `${req.protocol}://${req.get('host')}/reset-password?token=${token}`;
+        sendEmail(tenant.email, '🔐 Password Reset - Prime Inventory', passwordResetEmail(tenant.name, resetLink));
+        
+        res.json({ message: '✅ Link reset waa la diray email-kaaga!' });
+    });
+});
+
+router.post('/reset-password', async (req, res) => {
+    const { token, newPassword } = req.body;
+    
+    if (!token || !newPassword) {
+        return res.status(400).json({ error: 'Fadlan geli token iyo password cusub!' });
+    }
+    
+    if (newPassword.length < 6) {
+        return res.status(400).json({ error: 'Password-ka waa inuu ka badan yahay 6 xaraf!' });
+    }
+    
+    const reset = resetTokens.get(token);
+    if (!reset || reset.expires < Date.now()) {
+        return res.status(400).json({ error: 'Token-ka waa khalad ama wuu dhacay!' });
+    }
+    
+    const bcrypt = require('bcryptjs');
+    const hash = await bcrypt.hash(newPassword, 10);
+    
+    db.run('UPDATE tenants SET password = ? WHERE id = ?', [hash, reset.tenantId], (err) => {
+        if (err) return res.status(500).json({ error: err.message });
+        resetTokens.delete(token);
+        res.json({ message: '✅ Password-ka waa la bedelay! Hadda soo gal.' });
+    });
+});
+
+// ============================================
+// EMAIL VERIFICATION
+// ============================================
+const verifyTokens = new Map();
+
+router.post('/verify-email', (req, res) => {
+    const { token } = req.body;
+    
+    if (!token) return res.status(400).json({ error: 'Token waa loo baahan yahay!' });
+    
+    const verify = verifyTokens.get(token);
+    if (!verify || verify.expires < Date.now()) {
+        return res.status(400).json({ error: 'Token-ka waa khalad ama wuu dhacay!' });
+    }
+    
+    db.run('UPDATE tenants SET is_verified = 1 WHERE id = ?', [verify.tenantId], (err) => {
+        if (err) return res.status(500).json({ error: err.message });
+        verifyTokens.delete(token);
+        res.json({ message: '✅ Email-kaaga waa la xaqiijiyay!' });
+    });
+});
+
+router.post('/resend-verification', (req, res) => {
+    const { email } = req.body;
+    
+    db.get('SELECT * FROM tenants WHERE email = ?', [email.toLowerCase()], (err, tenant) => {
+        if (err) return res.status(500).json({ error: err.message });
+        if (!tenant) return res.status(404).json({ error: 'Tenant lama helin!' });
+        if (tenant.is_verified) return res.json({ message: 'Email-kaaga hore ayaa loo xaqiijiyay!' });
+        
+        const token = crypto.randomBytes(32).toString('hex');
+        verifyTokens.set(token, { tenantId: tenant.id, expires: Date.now() + 86400000 });
+        
+        const verifyLink = `${req.protocol}://${req.get('host')}/verify-email?token=${token}`;
+        const { verificationEmail } = require('../utils/email');
+        sendEmail(tenant.email, '✅ Xaqiiji Email-kaaga - Prime Inventory', verificationEmail(tenant.name, verifyLink));
+        
+        res.json({ message: '✅ Email xaqiijin waa la diray!' });
+    });
+});
+
 module.exports = router;
+

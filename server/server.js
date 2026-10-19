@@ -1,11 +1,10 @@
 ﻿// ============================================================
-// ENTERPRISE SaaS PLATFORM - MAIN SERVER
+// INVENTORY SYSTEM PRIME - MAIN SERVER
 // ============================================================
 
 const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
-const rateLimit = require('express-rate-limit');
 const path = require('path');
 const http = require('http');
 const { Server } = require('socket.io');
@@ -26,15 +25,35 @@ app.use(cors({ origin: process.env.CORS_ORIGIN?.split(',') || '*', credentials: 
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
 
-const limiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 500 });
-app.use('/api/', limiter);
+// ============================================
+// RATE LIMITING
+// ============================================
+const { apiLimiter, loginLimiter } = require('./middleware/rateLimit');
 
-// Static
+app.use('/api/', apiLimiter);
+app.use('/api/tenant/login', loginLimiter);
+
+// ============================================
+// STATIC FILES
+// ============================================
 app.use(express.static(path.join(__dirname, '..')));
 app.use(express.static(path.join(__dirname, '..', 'client')));
 
-// Database
+// ============================================
+// DATABASE
+// ============================================
 const db = require('./models/database');
+
+// ============================================
+// LOGGER
+// ============================================
+let logger;
+try {
+    logger = require('./utils/logger');
+    console.log('✅ Logger loaded');
+} catch (e) {
+    console.log('⚠️ Logger not loaded:', e.message);
+}
 
 // ============================================
 // ROUTES
@@ -51,10 +70,14 @@ try {
     app.use('/api/admin', require('./routes/admin'));
     app.use('/api/customer', require('./routes/customer'));
     app.use('/api/ai', require('./routes/ai'));
+    app.use('/api/2fa', require('./routes/twofa'));
+    app.use('/api/warehouse', require('./routes/warehouse'));
+    app.use('/api/custom-reports', require('./routes/customReports'));
+    app.use('/api/keys', require('./routes/apiKeys'));
+    app.use('/api/payment', require('./routes/payment'));
     console.log('✅ All routes loaded successfully');
 } catch (e) {
     console.error('❌ Route loading error:', e.message);
-    console.error(e.stack);
 }
 
 // ============================================
@@ -73,8 +96,8 @@ app.get('/payment', (req, res) => res.sendFile(path.join(__dirname, '..', 'payme
 // ============================================
 app.get('/api', (req, res) => {
     res.json({
-        name: '🏢 Enterprise SaaS Platform',
-        version: '3.0.0',
+        name: '🏢 Inventory System Prime',
+        version: '4.0.0',
         status: 'Running',
         features: [
             'Multi-Tenant Architecture',
@@ -83,17 +106,33 @@ app.get('/api', (req, res) => {
             'Billing & Subscriptions',
             'PDF/Excel Reports',
             'Multi-Language (SO/EN/AR)',
-            '24/7 Auto Connection',
             'AI Assistant',
-            'Audit Logs',
-            'Custom Domains'
+            'Password Reset',
+            'Email Verification',
+            '2FA',
+            'Multi-Warehouse',
+            'Custom Reports',
+            'Third-Party API',
+            'Payment Gateway',
+            'PWA Support'
         ],
         endpoints: {
             owner: '/api/owner',
             tenant: '/api/tenant',
             schedule: '/api/schedule',
             billing: '/api/billing',
-            reports: '/api/reports'
+            reports: '/api/reports',
+            auth: '/api/auth',
+            products: '/api/products',
+            sales: '/api/sales',
+            admin: '/api/admin',
+            customer: '/api/customer',
+            ai: '/api/ai',
+            '2fa': '/api/2fa',
+            warehouse: '/api/warehouse',
+            'custom-reports': '/api/custom-reports',
+            keys: '/api/keys',
+            payment: '/api/payment'
         }
     });
 });
@@ -117,8 +156,19 @@ io.on('connection', (socket) => {
 try {
     const { startScheduler } = require('./utils/scheduler');
     startScheduler(io);
+    console.log('✅ Scheduler loaded');
 } catch (e) {
     console.log('⚠️ Scheduler not loaded:', e.message);
+}
+
+// ============================================
+// BACKUP
+// ============================================
+try {
+    const { createBackup } = require('./utils/backup');
+    console.log('✅ Backup scheduler loaded');
+} catch (e) {
+    console.log('⚠️ Backup not loaded:', e.message);
 }
 
 // ============================================
@@ -145,6 +195,7 @@ cron.schedule('0 9 * * *', () => {
 // ============================================
 app.use((err, req, res, next) => {
     console.error('❌ Error:', err);
+    if (logger) logger.error(err.message, { stack: err.stack });
     res.status(err.status || 500).json({ error: err.message || 'Server Error' });
 });
 
@@ -156,7 +207,7 @@ app.use((req, res) => res.status(404).json({ error: 'Route not found' }));
 server.listen(PORT, () => {
     console.log('');
     console.log('═══════════════════════════════════════════════');
-    console.log('🏢 ENTERPRISE SaaS PLATFORM v3.0');
+    console.log('🏢 INVENTORY SYSTEM PRIME v4.0');
     console.log('═══════════════════════════════════════════════');
     console.log(`🚀 Server:     http://localhost:${PORT}`);
     console.log(`🌐 Domain:     ${process.env.MAIN_DOMAIN || 'localhost'}`);
@@ -166,8 +217,8 @@ server.listen(PORT, () => {
     console.log(`💰 Pricing:    http://localhost:${PORT}/pricing`);
     console.log('───────────────────────────────────────────────');
     console.log('👑 OWNER LOGIN:');
-    console.log(`   📧 ${process.env.OWNER_EMAIL}`);
-    console.log(`   🔑 ${process.env.OWNER_PASSWORD}`);
+    console.log(`   📧 ${process.env.OWNER_EMAIL || 'akiidonly12@gmail.com'}`);
+    console.log(`   🔑 ${process.env.OWNER_PASSWORD || 'Akiid12345'}`);
     console.log('───────────────────────────────────────────────');
     console.log('✨ Features:');
     console.log('   ✅ Multi-Tenant');
@@ -176,6 +227,14 @@ server.listen(PORT, () => {
     console.log('   ✅ PDF/Excel Reports');
     console.log('   ✅ Multi-Language');
     console.log('   ✅ AI Assistant');
+    console.log('   ✅ Password Reset');
+    console.log('   ✅ Email Verification');
+    console.log('   ✅ 2FA');
+    console.log('   ✅ Multi-Warehouse');
+    console.log('   ✅ Custom Reports');
+    console.log('   ✅ Third-Party API');
+    console.log('   ✅ Payment Gateway');
+    console.log('   ✅ PWA Support');
     console.log('═══════════════════════════════════════════════');
     console.log('');
 });

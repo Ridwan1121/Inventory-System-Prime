@@ -1,5 +1,9 @@
-﻿const PDFDocument = require('pdfkit');
+﻿// ============================================================
+// REPORTS GENERATOR - PDF & Excel
+// ============================================================
+const PDFDocument = require('pdfkit');
 const ExcelJS = require('exceljs');
+
 function generateInvoicePDF(data, res) {
     const doc = new PDFDocument({ margin: 50 });
     res.setHeader('Content-Type', 'application/pdf');
@@ -15,15 +19,21 @@ function generateInvoicePDF(data, res) {
     doc.fontSize(10).text(data.customer_name || 'Customer');
     doc.moveDown();
     doc.fontSize(10).text('Description', 50, 250);
-    doc.text('Qty', 300, 250); doc.text('Price', 350, 250); doc.text('Total', 450, 250);
+    doc.text('Qty', 300, 250);
+    doc.text('Price', 350, 250);
+    doc.text('Total', 450, 250);
     let y = 280;
     data.items.forEach(item => {
-        doc.text(item.name, 50, y); doc.text(String(item.quantity), 300, y);
-        doc.text(`$${item.price.toFixed(2)}`, 350, y); doc.text(`$${item.total.toFixed(2)}`, 450, y); y += 20;
+        doc.text(item.name, 50, y);
+        doc.text(String(item.quantity), 300, y);
+        doc.text(`$${item.price.toFixed(2)}`, 350, y);
+        doc.text(`$${item.total.toFixed(2)}`, 450, y);
+        y += 20;
     });
     doc.fontSize(12).text(`Total: $${data.total.toFixed(2)}`, { align: 'right' });
     doc.end();
 }
+
 async function generateExcelReport(data, type, res) {
     const wb = new ExcelJS.Workbook();
     const ws = wb.addWorksheet(type || 'Report');
@@ -41,8 +51,10 @@ async function generateExcelReport(data, type, res) {
         ws.addRows(data);
     } else if (type === 'products') {
         ws.columns = [
-            { header: 'Name', key: 'name', width: 30 }, { header: 'Category', key: 'category', width: 20 },
-            { header: 'Price', key: 'price', width: 12 }, { header: 'Quantity', key: 'quantity', width: 12 },
+            { header: 'Name', key: 'name', width: 30 },
+            { header: 'Category', key: 'category', width: 20 },
+            { header: 'Price', key: 'price', width: 12 },
+            { header: 'Quantity', key: 'quantity', width: 12 },
             { header: 'SKU', key: 'sku', width: 15 }
         ];
         ws.addRows(data);
@@ -54,4 +66,5 @@ async function generateExcelReport(data, type, res) {
     await wb.xlsx.write(res);
     res.end();
 }
+
 module.exports = { generateInvoicePDF, generateExcelReport };

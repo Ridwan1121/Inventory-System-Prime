@@ -1,0 +1,117 @@
+﻿{
+  "app": {
+    "name": "نظام المخزون",
+    "subtitle": "الرئيسي"
+  },
+  "nav": {
+    "dashboard": "لوحة التحكم",
+    "invoicing": "الفواتير والضريبة",
+    "stock": "إدارة المخزون",
+    "ai": "المساعد الذكي",
+    "new": "جديد",
+    "migration": "نقل البيانات",
+    "reports": "التقارير",
+    "customers": "العملاء",
+    "accounting": "المحاسبة",
+    "pricing": "الأسعار",
+    "payment": "الدفع",
+    "company": "الشركة",
+    "individual": "فردي"
+  },
+  "dashboard": {
+    "welcome": "مرحباً بعودتك، رضوان! 👋",
+    "welcomeSub": "إليك ما يحدث في عملك اليوم.",
+    "totalRevenue": "إجمالي الإيرادات",
+    "totalProducts": "عناصر المخزون",
+    "totalInvoices": "الفواتير الإلكترونية",
+    "totalOrders": "الطلبات النشطة",
+    "quickLinks": "روابط سريعة",
+    "quickLinksSub": "انقر على أي رابط لفتح تلك الصفحة"
+  },
+  "invoicing": {
+    "title": "الفواتير والضريبة",
+    "subtitle": "إنشاء وإدارة الفواتير",
+    "createInvoice": "إنشاء فاتورة",
+    "customerName": "اسم العميل",
+    "amount": "المبلغ",
+    "description": "الوصف",
+    "saveInvoice": "حفظ الفاتورة",
+    "recentInvoices": "الفواتير الأخيرة",
+    "paid": "مدفوع",
+    "pending": "قيد الانتظار"
+  },
+  "stock": {
+    "title": "إدارة المخزون",
+    "subtitle": "إدارة المخزون الخاص بك",
+    "addProduct": "إضافة منتج",
+    "productName": "اسم المنتج",
+    "price": "السعر",
+    "quantity": "الكمية",
+    "saveProduct": "حفظ المنتج",
+    "productList": "قائمة المنتجات",
+    "inStock": "متوفر"
+  },
+  "ai": {
+    "title": "المساعد الذكي",
+    "subtitle": "اسأل أسئلة عن عملك",
+    "greeting": "مرحباً! كيف يمكنني مساعدتك اليوم؟",
+    "placeholder": "اسألني أي شيء..."
+  },
+  "migration": {
+    "title": "نقل البيانات",
+    "subtitle": "استيراد بياناتك التاريخية",
+    "dragDrop": "اسحب وأفلت ملفاتك هنا",
+    "orClick": "أو انقر للتصفح"
+  },
+  "reports": {
+    "title": "التقارير",
+    "subtitle": "عرض وتحميل التقارير",
+    "salesReport": "تقرير المبيعات",
+    "downloadExcel": "تحميل Excel",
+    "downloadPDF": "تحميل PDF"
+  },
+  "customers": {
+    "title": "العملاء",
+    "subtitle": "إدارة عملائك",
+    "addCustomer": "إضافة عميل",
+    "customerList": "قائمة العملاء"
+  },
+  "accounting": {
+    "title": "المحاسبة",
+    "subtitle": "احسب واحفظ إجماليات المحاسبة",
+    "calculator": "الآلة الحاسبة",
+    "saveCalculation": "حفظ الحساب",
+    "calculationHistory": "سجل الحسابات",
+    "noHistory": "لا توجد حسابات محفوظة بعد."
+  },
+  "pricing": {
+    "title": "خطط الأسعار",
+    "subtitle": "اختر الخطة التي تناسب عملك",
+    "choosePlan": "اختر الخطة"
+  },
+  "payment": {
+    "title": "الدفع",
+    "subtitle": "أكمل الدفع",
+    "methods": "طرق الدفع",
+    "confirm": "تأكيد الدفع"
+  },
+  "company": {
+    "title": "حساب الشركة",
+    "subtitle": "إدارة حساب شركتك"
+  },
+  "individual": {
+    "title": "حساب فردي",
+    "subtitle": "إدارة حسابك الشخصي"
+  },
+  "common": {
+    "save": "حفظ",
+    "cancel": "إلغاء",
+    "delete": "حذف",
+    "search": "بحث",
+    "logout": "تسجيل الخروج",
+    "language": "اللغة"
+  },
+  "language": {
+    "select": "اختر اللغة"
+  }
+}

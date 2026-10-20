@@ -1,29 +1,11 @@
-﻿# Dependencies
-node_modules/
+﻿node_modules/
 package-lock.json
-
-# Environment
 .env
-.env.local
-.env.production
-
-# Database
 *.sqlite
 *.db
-database.sqlite
-
-# Logs
 *.log
-npm-debug.log*
-
-# OS
 .DS_Store
 Thumbs.db
-
-# IDE
 .vscode/
 .idea/
-
-# Build
-dist/
-build/
+server/backups/

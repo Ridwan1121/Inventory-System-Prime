@@ -1,0 +1,117 @@
+﻿{
+  "app": {
+    "name": "Prime Inventory",
+    "subtitle": "Nidaamka"
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "invoicing": "Invoicing & GST",
+    "stock": "Maamulka Alaabta",
+    "ai": "Caawiye AI",
+    "new": "CUSUB",
+    "migration": "Soo Wareejinta Xogta",
+    "reports": "Warbixinaha",
+    "customers": "Macaamiisha",
+    "accounting": "Xisaabta",
+    "pricing": "Qiimaha",
+    "payment": "Lacag-bixinta",
+    "company": "Shirkadda",
+    "individual": "Shakhsiga"
+  },
+  "dashboard": {
+    "welcome": "Ku soo dhawow, Ridwan! 👋",
+    "welcomeSub": "Halkan waxaa ah waxa ka dhacaya ganacsigaaga maanta.",
+    "totalRevenue": "Wadarta Dakhliga",
+    "totalProducts": "Alaabta",
+    "totalInvoices": "GST & e-Invoices",
+    "totalOrders": "Dalabyada Firfircoon",
+    "quickLinks": "Xiriiriyeyaasha Degdega ah",
+    "quickLinksSub": "Riix link kasta si aad u furto boggaas"
+  },
+  "invoicing": {
+    "title": "Invoicing & GST",
+    "subtitle": "Abuur oo maamul qaansheegyada",
+    "createInvoice": "Abuur Qaansheeg",
+    "customerName": "Magaca Macmiilka",
+    "amount": "Qadarka",
+    "description": "Sharaxaad",
+    "saveInvoice": "Kaydi Qaansheegta",
+    "recentInvoices": "Qaansheegyada Dhawaan",
+    "paid": "La bixiyay",
+    "pending": "Sugaya"
+  },
+  "stock": {
+    "title": "Maamulka Alaabta",
+    "subtitle": "Maamul alaabtaada",
+    "addProduct": "Ku Dar Alaab",
+    "productName": "Magaca Alaabta",
+    "price": "Qiimaha",
+    "quantity": "Tirada",
+    "saveProduct": "Kaydi Alaabta",
+    "productList": "Liiska Alaabta",
+    "inStock": "Ku Jira"
+  },
+  "ai": {
+    "title": "Caawiye AI",
+    "subtitle": "Weydii su'aalo ku saabsan ganacsigaaga",
+    "greeting": "Salaan! Sidee ayaan ku caawin karaa maanta?",
+    "placeholder": "Wax kasta i weydii..."
+  },
+  "migration": {
+    "title": "Soo Wareejinta Xogta",
+    "subtitle": "Soo rar xogtaada hore",
+    "dragDrop": "Soo jiid oo dhig faylashaada halkan",
+    "orClick": "ama riix si aad u baarto"
+  },
+  "reports": {
+    "title": "Warbixinaha",
+    "subtitle": "Eeg oo soo dejiso warbixinaha",
+    "salesReport": "Warbixinta Iibka",
+    "downloadExcel": "Soo Deji Excel",
+    "downloadPDF": "Soo Deji PDF"
+  },
+  "customers": {
+    "title": "Macaamiisha",
+    "subtitle": "Maamul macaamiishaada",
+    "addCustomer": "Ku Dar Macmiil",
+    "customerList": "Liiska Macaamiisha"
+  },
+  "accounting": {
+    "title": "Xisaabta",
+    "subtitle": "Xisaabi oo kaydi wadarta xisaabtaada",
+    "calculator": "Xisaabiyaha",
+    "saveCalculation": "Kaydi Xisaabta",
+    "calculationHistory": "Taariikhda Xisaabta",
+    "noHistory": "Wali xisaab lama kaydin."
+  },
+  "pricing": {
+    "title": "Qorshayaasha Qiimaha",
+    "subtitle": "Dooro qorshaha ku habboon ganacsigaaga",
+    "choosePlan": "Dooro Qorshaha"
+  },
+  "payment": {
+    "title": "Lacag-bixinta",
+    "subtitle": "Dhamaystir lacag-bixintaada",
+    "methods": "Hababka Lacag-bixinta",
+    "confirm": "Xaqiiji Lacag-bixinta"
+  },
+  "company": {
+    "title": "Akoonka Shirkadda",
+    "subtitle": "Maamul akoonka shirkaddaada"
+  },
+  "individual": {
+    "title": "Akoonka Shakhsiga",
+    "subtitle": "Maamul akoonkaaga shakhsiga"
+  },
+  "common": {
+    "save": "Kaydi",
+    "cancel": "Jooji",
+    "delete": "Tirtir",
+    "search": "Raadi",
+    "logout": "Ka bax",
+    "language": "Luqadda"
+  },
+  "language": {
+    "select": "Dooro Luqadda"
+  }
+}

@@ -1,0 +1,117 @@
+﻿{
+  "app": {
+    "name": "Prime Inventory",
+    "subtitle": "System"
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "invoicing": "Invoicing & GST",
+    "stock": "Stock Management",
+    "ai": "AI Assistant",
+    "new": "NEW",
+    "migration": "Data Migration",
+    "reports": "Reports",
+    "customers": "Customers",
+    "accounting": "Accounting",
+    "pricing": "Pricing",
+    "payment": "Payment",
+    "company": "Company",
+    "individual": "Individual"
+  },
+  "dashboard": {
+    "welcome": "Welcome Back, Ridwan! 👋",
+    "welcomeSub": "Here's what's happening with your business today.",
+    "totalRevenue": "Total Revenue",
+    "totalProducts": "Stock Items",
+    "totalInvoices": "GST & e-Invoices",
+    "totalOrders": "Active Orders",
+    "quickLinks": "Quick Links",
+    "quickLinksSub": "Click any link to open that page"
+  },
+  "invoicing": {
+    "title": "Invoicing & GST",
+    "subtitle": "Create and manage invoices",
+    "createInvoice": "Create Invoice",
+    "customerName": "Customer Name",
+    "amount": "Amount",
+    "description": "Description",
+    "saveInvoice": "Save Invoice",
+    "recentInvoices": "Recent Invoices",
+    "paid": "Paid",
+    "pending": "Pending"
+  },
+  "stock": {
+    "title": "Stock Management",
+    "subtitle": "Manage your inventory",
+    "addProduct": "Add Product",
+    "productName": "Product Name",
+    "price": "Price",
+    "quantity": "Quantity",
+    "saveProduct": "Save Product",
+    "productList": "Product List",
+    "inStock": "In Stock"
+  },
+  "ai": {
+    "title": "AI Assistant",
+    "subtitle": "Ask questions about your business",
+    "greeting": "Hello! How can I help you today?",
+    "placeholder": "Ask me anything..."
+  },
+  "migration": {
+    "title": "Data Migration",
+    "subtitle": "Import your historical data",
+    "dragDrop": "Drag & drop your files here",
+    "orClick": "or click to browse"
+  },
+  "reports": {
+    "title": "Reports",
+    "subtitle": "View and download reports",
+    "salesReport": "Sales Report",
+    "downloadExcel": "Download Excel",
+    "downloadPDF": "Download PDF"
+  },
+  "customers": {
+    "title": "Customers",
+    "subtitle": "Manage your customers",
+    "addCustomer": "Add Customer",
+    "customerList": "Customer List"
+  },
+  "accounting": {
+    "title": "Accounting Calculator",
+    "subtitle": "Calculate and save your accounting totals",
+    "calculator": "Calculator",
+    "saveCalculation": "Save Calculation",
+    "calculationHistory": "Calculation History",
+    "noHistory": "No calculations saved yet."
+  },
+  "pricing": {
+    "title": "Pricing Plans",
+    "subtitle": "Choose the plan that fits your business",
+    "choosePlan": "Choose Plan"
+  },
+  "payment": {
+    "title": "Payment",
+    "subtitle": "Complete your payment",
+    "methods": "Payment Methods",
+    "confirm": "Confirm Payment"
+  },
+  "company": {
+    "title": "Company Account",
+    "subtitle": "Manage your company account"
+  },
+  "individual": {
+    "title": "Individual Account",
+    "subtitle": "Manage your personal account"
+  },
+  "common": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "search": "Search",
+    "logout": "Logout",
+    "language": "Language"
+  },
+  "language": {
+    "select": "Select Language"
+  }
+}

@@ -1,0 +1,146 @@
+﻿<!DOCTYPE html>
+<html lang="so">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About Us - Inventory System Prime</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>ℹ️</text></svg>" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { font-family: 'Inter', sans-serif; background: #f8fafc; color: #0f172a; line-height: 1.6; }
+        
+        .navbar { position: fixed; top: 0; left: 0; right: 0; height: 72px; background: rgba(255,255,255,0.95); backdrop-filter: blur(20px); border-bottom: 1px solid #e2e8f0; display: flex; align-items: center; justify-content: space-between; padding: 0 32px; z-index: 1000; }
+        .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: #0f172a; }
+        .nav-logo-icon { width: 40px; height: 40px; background: linear-gradient(135deg, #2563eb, #1d4ed8); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2rem; }
+        .nav-logo-text { display: flex; flex-direction: column; line-height: 1.1; }
+        .nav-logo-text span:first-child { font-size: 1rem; font-weight: 800; }
+        .nav-logo-text span:last-child { font-size: 0.65rem; font-weight: 700; color: #2563eb; text-transform: uppercase; }
+        .nav-links { display: flex; align-items: center; gap: 8px; list-style: none; }
+        .nav-links a { padding: 8px 16px; border-radius: 8px; text-decoration: none; color: #64748b; font-size: 0.9rem; font-weight: 500; transition: all 0.2s; }
+        .nav-links a:hover, .nav-links a.active { background: #eff6ff; color: #2563eb; }
+        .nav-actions { display: flex; align-items: center; gap: 8px; }
+        .btn-login { padding: 8px 20px; border-radius: 8px; text-decoration: none; color: #0f172a; font-size: 0.9rem; font-weight: 600; }
+        .btn-signup { padding: 10px 24px; border-radius: 10px; text-decoration: none; background: linear-gradient(135deg, #2563eb, #1d4ed8); color: white; font-size: 0.9rem; font-weight: 600; box-shadow: 0 4px 14px rgba(37,99,235,0.3); }
+        
+        .about-hero { margin-top: 72px; padding: 100px 32px; background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #2563eb 100%); color: white; text-align: center; }
+        .about-hero h1 { font-size: 3rem; font-weight: 900; margin-bottom: 16px; }
+        .about-hero h1 span { background: linear-gradient(135deg, #60a5fa, #10b981); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .about-hero p { font-size: 1.2rem; opacity: 0.9; max-width: 700px; margin: 0 auto; }
+        
+        .section { padding: 80px 32px; max-width: 1200px; margin: 0 auto; }
+        .section h2 { font-size: 2rem; font-weight: 800; margin-bottom: 16px; text-align: center; }
+        .section p { color: #64748b; font-size: 1.05rem; text-align: center; max-width: 800px; margin: 0 auto 48px; }
+        
+        .mission-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
+        .mission-card { background: white; padding: 32px; border-radius: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.06); border: 1px solid #e2e8f0; }
+        .mission-card .icon { width: 56px; height: 56px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 20px; }
+        .mission-card h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 8px; }
+        .mission-card p { color: #64748b; font-size: 0.95rem; text-align: left; margin: 0; }
+        
+        .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 24px; }
+        .team-card { background: white; padding: 32px; border-radius: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.06); text-align: center; border: 1px solid #e2e8f0; }
+        .team-card img { width: 80px; height: 80px; border-radius: 50%; margin-bottom: 16px; }
+        .team-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 4px; }
+        .team-card p { color: #64748b; font-size: 0.85rem; }
+        
+        .footer { background: #0f172a; color: #94a3b8; padding: 60px 32px 24px; margin-top: 40px; }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; max-width: 1200px; margin: 0 auto 40px; }
+        .footer-col h4 { color: white; margin-bottom: 16px; }
+        .footer-col a { display: block; color: #94a3b8; text-decoration: none; padding: 4px 0; font-size: 0.9rem; }
+        .footer-col a:hover { color: white; }
+        .footer-bottom { text-align: center; padding-top: 24px; border-top: 1px solid #1e293b; font-size: 0.85rem; }
+        
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .about-hero h1 { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <a href="/" class="nav-logo">
+            <div class="nav-logo-icon"><i class="fas fa-chart-line"></i></div>
+            <div class="nav-logo-text"><span>Prime Inventory</span><span>System</span></div>
+        </a>
+        <ul class="nav-links">
+            <li><a href="/"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="/about" class="active"><i class="fas fa-info-circle"></i> About</a></li>
+            <li><a href="/contact"><i class="fas fa-envelope"></i> Contact</a></li>
+            <li><a href="/pricing"><i class="fas fa-tags"></i> Pricing</a></li>
+            <li><a href="/dashboard"><i class="fas fa-th-large"></i> Dashboard</a></li>
+        </ul>
+        <div class="nav-actions">
+            <a href="/login" class="btn-login">Login</a>
+            <a href="/signup" class="btn-signup">Start Free Trial</a>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="about-hero">
+        <h1>About <span>Prime Inventory</span></h1>
+        <p>We're on a mission to empower businesses in Somaliland and beyond with modern, AI-powered inventory management tools.</p>
+    </section>
+
+    <!-- Mission -->
+    <section class="section">
+        <h2>Our Mission</h2>
+        <p>To make inventory management simple, smart, and accessible for every business—from small shops to large enterprises.</p>
+        <div class="mission-grid">
+            <div class="mission-card">
+                <div class="icon" style="background:#dbeafe;color:#1e40af;"><i class="fas fa-rocket"></i></div>
+                <h3>Innovation</h3>
+                <p>We leverage cutting-edge AI and cloud technology to solve real business problems.</p>
+            </div>
+            <div class="mission-card">
+                <div class="icon" style="background:#d1fae5;color:#065f46;"><i class="fas fa-heart"></i></div>
+                <h3>Customer First</h3>
+                <p>Every feature we build starts with understanding our customers' needs.</p>
+            </div>
+            <div class="mission-card">
+                <div class="icon" style="background:#fef3c7;color:#92400e;"><i class="fas fa-shield-alt"></i></div>
+                <h3>Trust & Security</h3>
+                <p>We protect your data with enterprise-grade security and privacy.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team -->
+    <section class="section" style="background:white; max-width:none; padding:80px 32px;">
+        <div style="max-width:1200px; margin:0 auto;">
+            <h2>Our Team</h2>
+            <p>Passionate people building the future of business management.</p>
+            <div class="team-grid">
+                <div class="team-card">
+                    <img src="https://ui-avatars.com/api/?name=Ridwan+Farah&background=2563eb&color=fff&size=80" alt="Ridwan Farah" />
+                    <h3>Ridwan Farah</h3>
+                    <p>Founder & CEO</p>
+                </div>
+                <div class="team-card">
+                    <img src="https://ui-avatars.com/api/?name=Team+Member&background=10b981&color=fff&size=80" alt="Team Member" />
+                    <h3>Team Member</h3>
+                    <p>CTO</p>
+                </div>
+                <div class="team-card">
+                    <img src="https://ui-avatars.com/api/?name=Team+Member&background=f59e0b&color=fff&size=80" alt="Team Member" />
+                    <h3>Team Member</h3>
+                    <p>Head of Product</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-grid">
+            <div class="footer-col"><h4>Prime Inventory</h4><p style="font-size:0.9rem;">AI-powered inventory management for modern businesses.</p></div>
+            <div class="footer-col"><h4>Quick Links</h4><a href="/">Home</a><a href="/about">About Us</a><a href="/contact">Contact</a><a href="/pricing">Pricing</a></div>
+            <div class="footer-col"><h4>Product</h4><a href="/dashboard">Dashboard</a><a href="/login">Login</a><a href="/signup">Signup</a><a href="/owner">Owner Panel</a></div>
+            <div class="footer-col"><h4>Contact</h4><a href="https://wa.me/252634008040"><i class="fab fa-whatsapp"></i> WhatsApp</a><a href="tel:+252634008040"><i class="fas fa-phone"></i> +252 63 400 8040</a><a href="mailto:akiidonly12@gmail.com"><i class="fas fa-envelope"></i> Email</a></div>
+        </div>
+        <div class="footer-bottom"><p>&copy; 2026 Inventory System Prime. All rights reserved.</p></div>
+    </footer>
+</body>
+</html>

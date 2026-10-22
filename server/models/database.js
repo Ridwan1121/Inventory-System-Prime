@@ -146,14 +146,29 @@ function initDatabase() {
         
         // CREATE DEFAULT OWNER
         setTimeout(async () => {
-            const ownerEmail = process.env.OWNER_EMAIL || 'akiidonly12@gmail.com';
-            const ownerPassword = process.env.OWNER_PASSWORD || 'Akiid12345';
+            const ownerEmail = process.env.OWNER_EMAIL;
+            const ownerPassword = process.env.OWNER_PASSWORD;
+            if (!ownerEmail || !ownerPassword) {
+                console.error('⚠️ Default owner not created: set OWNER_EMAIL and OWNER_PASSWORD in the environment.');
+                return;
+            }
             db.get('SELECT * FROM owners WHERE email = ?', [ownerEmail], async (err, owner) => {
+                if (err) {
+                    console.error('❌ Could not check for the default owner:', err.message);
+                    return;
+                }
                 if (!owner) {
-                    const hash = await bcrypt.hash(ownerPassword, 10);
-                    db.run('INSERT INTO owners (name, email, password, phone, country, is_main_owner) VALUES (?, ?, ?, ?, ?, 1)',
-                        [process.env.OWNER_NAME || 'System Owner', ownerEmail, hash, '+252634008040', 'Somaliland'],
-                        (err) => { if (!err) { console.log('👑 Owner created: ' + ownerEmail); } });
+                    try {
+                        const hash = await bcrypt.hash(ownerPassword, 10);
+                        db.run('INSERT INTO owners (name, email, password, phone, country, is_main_owner) VALUES (?, ?, ?, ?, ?, 1)',
+                            [process.env.OWNER_NAME || 'System Owner', ownerEmail, hash, '+252634008040', 'Somaliland'],
+                            (err) => {
+                                if (err) console.error('❌ Could not create the default owner:', err.message);
+                                else console.log('👑 Default owner created.');
+                            });
+                    } catch (error) {
+                        console.error('❌ Could not hash the default owner password:', error.message);
+                    }
                 }
             });
         }, 1000);

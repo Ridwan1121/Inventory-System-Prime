@@ -90,10 +90,6 @@ server.listen(PORT, () => {
     console.log(`📊 API:        http://localhost:${PORT}/api`);
     console.log(`👑 Owner:      http://localhost:${PORT}/owner`);
     console.log(`📊 Dashboard:  http://localhost:${PORT}/dashboard`);
-    console.log('───────────────────────────────────────────────');
-    console.log('👑 OWNER LOGIN:');
-    console.log(`   📧 ${process.env.OWNER_EMAIL || 'akiidonly12@gmail.com'}`);
-    console.log(`   🔑 ${process.env.OWNER_PASSWORD || 'Akiid12345'}`);
     console.log('═══════════════════════════════════════════════');
     console.log('');
 });
